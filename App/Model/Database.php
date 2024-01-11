@@ -1,18 +1,17 @@
 <?
+namespace App\Model;
 class Database
 {
     private $host = 'localhost';
-    private $dbname = 'your_database_name';
-    private $username = 'your_username';
-    private $password = 'your_password';
-    private $pdo;
-
+    private $dbname = 'php2';
+    private $username = 'root';
+    private $password = 'mysql';
 
     function pdo_get_connection()
     {
-        $dburl = "mysql:host=localhost;dbname=php2;charset=utf8";
-        $username = 'root';
-        $password = 'mysql';
+        $dburl = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8";
+        $username = $this->username;
+        $password = $this->password;
         $conn = new PDO($dburl, $username, $password);
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $conn;
