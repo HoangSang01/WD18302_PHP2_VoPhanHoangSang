@@ -1,5 +1,10 @@
 <?
+
 namespace App\Model;
+
+use PDO;
+use PDOException;
+
 class Database
 {
     private $host = 'localhost';

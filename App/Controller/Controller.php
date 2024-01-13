@@ -1,0 +1,3 @@
+<?
+
+use App\Model\User;
