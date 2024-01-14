@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Core\Field;
+
 class Form
 {
     public static function begin($action, $method)

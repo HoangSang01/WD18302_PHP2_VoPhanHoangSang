@@ -2,16 +2,10 @@
 
 namespace App\Responsitories;
 
-abstract class Abstracts
+abstract class Abstracts implements Interfaces
 {
-    protected $models;
-    public function getModels()
-    {
-        return $this->models;
-    }
-    abstract public function getTable();
     abstract public function get_User();
-    abstract public function add_User();
-    abstract public function remove_User();
-    abstract public function edit_User();
+    abstract public function add_User($username, $password, $email);
+    abstract public function remove_User($id);
+    abstract public function edit_User($id, $password, $email);
 }

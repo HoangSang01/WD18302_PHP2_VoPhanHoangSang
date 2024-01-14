@@ -25,6 +25,12 @@ use App\Core\Form;
         <? echo $form->field('password')->passwordField(); ?>
         <? echo $form->field('confirmpassword')->passwordField(); ?>
         <button name="submit" type="submit" class="btn btn-primary">Submit</button>
-        <?= FORM::end(); ?>
+        <?= Form::end(); ?>
     </div>
 </div>
+
+<?
+$user = new Base();
+$user ->add_User('name','pass','mail');
+$user->get_User();
+?>
