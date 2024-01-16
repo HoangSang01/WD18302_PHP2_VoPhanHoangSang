@@ -1,0 +1,9 @@
+{
+    "name": "admin/wd18302_php2_vo-phan-hoang-sang",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "require": {}
+}
