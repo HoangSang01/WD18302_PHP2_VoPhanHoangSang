@@ -28,7 +28,8 @@
                                 <td>Member</td>
                                 <td style="padding-top:0px">
                                     <button style="float:right;" type="button" class="btn btn-square btn-outline-danger m-2"><i class="fas fa-trash"></i></button>
-                                    <button style="float:right;" type="button" class="btn btn-square btn-outline-info m-2"><i class="fas fa-edit"></i></button>
+                                    <button style="float:right;" type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-edit"></i></button>
+                                    <button style="float:right;" type="button" class="btn btn-square btn-outline-info m-2"><i class="fa fa-info-circle"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -41,7 +42,8 @@
                                 <td>Member</td>
                                 <td style="padding-top:0px">
                                     <button style="float:right;" type="button" class="btn btn-square btn-outline-danger m-2"><i class="fas fa-trash"></i></button>
-                                    <button style="float:right;" type="button" class="btn btn-square btn-outline-info m-2"><i class="fas fa-edit"></i></button>
+                                    <button style="float:right;" type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-edit"></i></button>
+                                    <button style="float:right;" type="button" class="btn btn-square btn-outline-info m-2"><i class="fa fa-info-circle"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -54,7 +56,8 @@
                                 <td>Member</td>
                                 <td style="padding-top:0px">
                                     <button style="float:right;" type="button" class="btn btn-square btn-outline-danger m-2"><i class="fas fa-trash"></i></button>
-                                    <button style="float:right;" type="button" class="btn btn-square btn-outline-info m-2"><i class="fas fa-edit"></i></button>
+                                    <button style="float:right;" type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-edit"></i></button>
+                                    <button style="float:right;" type="button" class="btn btn-square btn-outline-info m-2"><i class="fa fa-info-circle"></i></button>
                                 </td>
                             </tr>
                         </tbody>
