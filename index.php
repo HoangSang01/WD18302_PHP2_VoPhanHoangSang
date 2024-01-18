@@ -1,9 +1,7 @@
 <?
-class Fruit
-{
-    public $name;
-    protected $color;
-    private $weight;
-}
-$mango = new Fruit();
-echo $mango->name = 'Mango';
+require_once 'vendor/autoload.php';
+define('ROOT_URL', 'http://php2/');
+
+use App\Core\Routes;
+
+new Routes;
