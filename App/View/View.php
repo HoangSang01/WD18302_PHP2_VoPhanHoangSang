@@ -4,7 +4,7 @@
             <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4">Danh sách người dùng</h6>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
