@@ -74,7 +74,7 @@
         </div> -->
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img class="rounded-circle me-lg-2" src="App/View/resources/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                <img class="rounded-circle me-lg-2" src="App/Views/layouts/admin/resources/img/user.jpg" alt="" style="width: 40px; height: 40px;">
                 <span class="d-none d-lg-inline-flex">Võ Phan Hoàng Sang</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">

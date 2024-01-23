@@ -27,9 +27,10 @@ class RenderBase extends BaseController
         //     'topics' => $this->_topic->getTopics(),
         //     'categories' => $this->_category->getAll()
         // ];
-        $this->load->render('layouts/admin/components/head');
-        $this->load->render('layouts/admin/components/navbar');
+        $this->load->render('layouts/admin/components/header');
     }
+
+    
 
     /**
      * @throws Exception
@@ -37,9 +38,5 @@ class RenderBase extends BaseController
     public function renderFooter()
     {
         $this->load->render('layouts/admin/components/footer');
-    }
-    public function rendercontent()
-    {
-        $this->load->render('layouts/client/slider');
     }
 }

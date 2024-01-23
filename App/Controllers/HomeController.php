@@ -21,8 +21,7 @@ class HomeController extends BaseController
     function homePage()
     {
         $this->_renderBase->renderHeader();
-        $this->load->render('components/head');
-        $this->load->render('components/navbar');
+        $this->load->render('layouts/admin/content/dashboard');
         // render giao dien o day
         $this->_renderBase->renderFooter();
     }
