@@ -27,18 +27,16 @@ class RenderBase extends BaseController
         //     'topics' => $this->_topic->getTopics(),
         //     'categories' => $this->_category->getAll()
         // ];
-        $this->load->render('layouts/client/header');
+        $this->load->render('layouts/admin/components/header');
     }
+
+    
 
     /**
      * @throws Exception
      */
     public function renderFooter()
     {
-        $this->load->render('layouts/client/footer');
-    }
-    public function rendercontent()
-    {
-        $this->load->render('layouts/client/slider');
+        $this->load->render('layouts/admin/components/footer');
     }
 }
