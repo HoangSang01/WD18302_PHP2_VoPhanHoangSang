@@ -1,0 +1,22 @@
+{
+    "name": "manager",
+    "type": "project",
+    "description": "The skeleton application for the php framework.",
+    "keywords": ["php", "framework"],
+    "autoload": {
+        "psr-4": {
+            "App\\": "./app",
+            "Illuminate\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Trường Đan",
+            "email": "danvtcp06576@fpt.edu.vn"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.5",
+        "cocur/slugify": "^4.5"
+    }
+}
