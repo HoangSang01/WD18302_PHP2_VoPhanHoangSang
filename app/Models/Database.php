@@ -1,6 +1,6 @@
 <?
 
-namespace App\Model;
+namespace App\Models;
 
 use PDO;
 use PDOException;
@@ -12,7 +12,9 @@ class Database
     private $username = 'root';
     private $password = 'mysql';
 
-    function pdo_get_connection()
+    public $connection;
+
+    public function pdo_get_connection()
     {
         $dburl = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8";
         $username = $this->username;
@@ -21,7 +23,7 @@ class Database
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $conn;
     }
-    function pdo_execute($sql)
+    public function pdo_execute($sql)
     {
         $sql_args = array_slice(func_get_args(), 1);
         try {
@@ -34,7 +36,7 @@ class Database
             unset($conn);
         }
     }
-    function pdo_query($sql)
+    public function pdo_query($sql)
     {
         $sql_args = array_slice(func_get_args(), 1);
         try {
@@ -49,7 +51,7 @@ class Database
             unset($conn);
         }
     }
-    function pdo_query_one($sql)
+    public function pdo_query_one($sql)
     {
         $sql_args = array_slice(func_get_args(), 1);
         try {
@@ -64,7 +66,7 @@ class Database
             unset($conn);
         }
     }
-    function pdo_query_value($sql)
+    public function pdo_query_value($sql)
     {
         $sql_args = array_slice(func_get_args(), 1);
         try {

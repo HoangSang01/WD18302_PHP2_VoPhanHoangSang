@@ -2,21 +2,21 @@
 // interface là bản thiết kế, dùng để khai báo phương thức sẽ thực hiện
 namespace App\Model;
 
-class InterfaceCRUD
+interface InterfaceCRUD
 {
-    /**get_all truy xuất tất cả danh sách người dùng*/
-    public function get_all_user();
-    /**get_all truy xuất một người dùng
+    /**create thêm một người dùng mới*/
+    public function create(array $data);
+    /**read_all truy xuất tất cả danh sách người dùng*/
+    public function read_all();
+    /**read_one truy xuất một người dùng
      *@param int $id
      *@return array $record*/
-    public function get_one_user(int $id, array $data);
-    /**create_user thêm một người dùng mới*/
-    public function create_user(array $data);
-    /**update_user cập nhật thông tin người dùng
+    public function read_one(int $id, array $data);
+    /**update cập nhật thông tin người dùng
      *@param int $id
      *@return array $record*/
-    public function update_user(int $id, array $data);
-    /**delete_user xoá một người dùng
+    public function update(int $id, array $data);
+    /**delete xoá một người dùng
      *@param int $id*/
-    public function delete_user(int $id):b;
+    public function delete(int $id): bool;
 }
