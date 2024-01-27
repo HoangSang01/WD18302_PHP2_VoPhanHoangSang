@@ -6,10 +6,10 @@ use App\Models\BaseModels;
 
 class UserModels extends BaseModels
 {
-    protected $table = 'users';
+    public $table = 'users';
 
     public function read_all_User()
     {
-        return $this->read_all('users');
+        return $this->read_all($this->table);
     }
 }

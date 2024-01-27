@@ -24,7 +24,7 @@ abstract class BaseModels extends Database implements InterfaceCRUD
 
     public function read_all()
     {
-        $this->_query = $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT * FROM " . $this->table;
         $stmt = $this->_db->pdo_query($sql);
         return $stmt;
     }
@@ -38,5 +38,4 @@ abstract class BaseModels extends Database implements InterfaceCRUD
     {
         return true;
     }
-
 };

@@ -2,10 +2,8 @@
 
 use App\Models\UserModels;
 
-new UserModels;
 $data = new UserModels;
 $list = $data->read_all_User();
-echo var_dump($list)
 ?>
 
 <div class="container-fluid pt-4 px-4">
@@ -28,12 +26,12 @@ echo var_dump($list)
                             </tr>
                         </thead>
                         <tbody>
-                            <? foreach ($list as $key => $value) :
-                                extract($result) ?>
+                            <? foreach ($list as $value) :
+                                extract($value) ?>
                                 <tr>
-                                    <th scope="row"><? $id ?></th>
-                                    <td><? $user['id'] ?></td>
-                                    <td><? $email ?></td>
+                                    <th scope="row"><?= $id ?></th>
+                                    <td><?= $username ?></td>
+                                    <td></td>
                                     <td>0907370341</td>
                                     <td>Hậu Giang</td>
                                     <td>Hoạt động</td>
