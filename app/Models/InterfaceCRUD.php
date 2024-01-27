@@ -1,6 +1,6 @@
 <?
 // interface là bản thiết kế, dùng để khai báo phương thức sẽ thực hiện
-namespace App\Model;
+namespace App\Models;
 
 interface InterfaceCRUD
 {
