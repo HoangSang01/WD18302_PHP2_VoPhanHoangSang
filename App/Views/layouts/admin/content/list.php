@@ -28,8 +28,7 @@ echo var_dump($list)
                             </tr>
                         </thead>
                         <tbody>
-                            <? foreach ($list as $result) :
-                                var_dump($result);
+                            <? foreach ($list as $key => $value) :
                                 extract($result) ?>
                                 <tr>
                                     <th scope="row"><? $id ?></th>
