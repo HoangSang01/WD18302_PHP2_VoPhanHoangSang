@@ -36,6 +36,7 @@ abstract class BaseModels extends Database implements InterfaceCRUD
 
     public function delete(int $id): bool
     {
+        $sql = "DELETE FROM " . $this->table . " WHERE id = $id";
         return true;
     }
 };
