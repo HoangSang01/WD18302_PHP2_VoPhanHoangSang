@@ -42,8 +42,12 @@ class LoginController extends BaseController
         $data->set_email($data['email']);
         var_dump($data);
     }
+
     public function loginAction()
     {
+        // if (!empty($_SESSION['user'])){
+        //     $this->redirect['ROOT_URL'];
+        // }
         var_dump($_POST['username']);
 
         $_POST['email'];
