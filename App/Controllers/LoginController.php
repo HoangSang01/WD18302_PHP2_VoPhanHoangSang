@@ -4,14 +4,18 @@ namespace App\Controllers;
 
 use App\Core\RenderBase;
 use App\Models\UserModels;
+use App\Controllers\HomeController;
+use App\Validation\UserValidation;
 
 class LoginController extends BaseController
 {
     private $_renderBase;
+    private $_homePage;
     function __construct()
     {
         parent::__construct();
         $this->_renderBase = new RenderBase;
+        $this->_homePage = new HomeController;
     }
 
     public function Register()
@@ -31,27 +35,61 @@ class LoginController extends BaseController
 
     public function Logout()
     {
+        unset($_SESSION['user']);
+        setcookie("user_id", "", time() - 3600, "/");
+        header('Location:?url=LoginController/Login');
     }
 
-    public function registerAction(array $data)
+    public function registerAction()
     {
-        $data = new UserModels();
-        $data->set_username($data['username']);
-        $data->set_password($data['password']);
-        $data->set_password2($data['password2']);
-        $data->set_email($data['email']);
-        var_dump($data);
+        // validation form
+
+        $userModel = new UserModels();
+
+        $user = $userModel->checkUserExist($_POST["username"]);
+
+        if ($user) {
+            echo 'Tài khoản đã tồn tại';
+        }
+        $userModel->createUser($_POST);
+        // //xác thực
+        if (password_verify($_POST['password'], $_POST['password2'])) {
+            // xử lý session
+            $userModel->createUser($_POST);
+        } else {
+            echo 'sai mật khẩu';
+        }
+
+        // var_dump($_SESSION['user']);
     }
 
     public function loginAction()
     {
-        // if (!empty($_SESSION['user'])){
-        //     $this->redirect['ROOT_URL'];
-        // }
-        var_dump($_POST['username']);
+        $validate = new UserValidation;
+        if ($validate->checkEmpty($_POST['username'])) {
+            $userModel = new UserModels();
+            $user = $userModel->checkUserExist($_POST["username"]);
+            if (!$user) {
+                // header('Location: ?url=LoginController/login');
+                echo ('tài khoản không tồn tại');
+            }
+            $hashedPassword = password_hash($user['password'], PASSWORD_BCRYPT);
+            if (password_verify($_POST['password'], $hashedPassword)) {
+                echo 'đăng nhập thành công';
+                setcookie("user_id", $user['id'], time() + 3600, "/");
+                $_SESSION['user'] = $user;
+                header('Location:?url=HomeController/HomePage');
+            } else {
+                // header('Location: ?url=LoginController/login');
+                echo ('sai mật khẩu');
+            }
+        }
+    }
 
-        $_POST['email'];
-        $_POST['password'];
-        // validation
+    function checkLogged()
+    {
+        if (!isset($_COOKIE['user_id'])) {
+            header("Location:?url=LoginController/login");
+        }
     }
 }

@@ -4,9 +4,13 @@ namespace App\Models;
 
 use App\Models\InterfaceCRUD;
 use App\Models\Database;
+use PDO;
+use Exception;
+use App\Models\Query;
 
 abstract class BaseModels extends Database implements InterfaceCRUD
 {
+    use Query;
     private $_db;
     private $_query;
     protected $table;
@@ -15,8 +19,31 @@ abstract class BaseModels extends Database implements InterfaceCRUD
     {
         $this->_db = new Database;
     }
-    public function create(array $data)
+    public function get()
     {
+        $stmt = $this->_db->pdo_get_connection()->prepare($this->_query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function create($table, array $data)
+    {
+        if (!empty($data)) {
+
+            $fielStr  = '';
+            $valueStr = '';
+            foreach ($data as $key => $value) {
+                $fielStr .= $key . ',';
+                $valueStr .= "'" . $value . "',";
+            }
+
+            $fielStr  = rtrim($fielStr, ',');
+            $valueStr = rtrim($valueStr, ',');
+            $sql      = "INSERT INTO  $table($fielStr) VALUES ($valueStr)";
+            $status = $this->query($sql);
+            if (!$status)
+                return false;
+        }
+        return true;
     }
     public function update(int $id, array $data)
     {
@@ -24,12 +51,11 @@ abstract class BaseModels extends Database implements InterfaceCRUD
 
     public function read_all()
     {
-        $sql = "SELECT * FROM " . $this->table;
-        $stmt = $this->_db->pdo_query($sql);
-        return $stmt;
-    }
+        $this->_query = "SELECT * FROM $this->table";
 
-    public function read_one(int $id, array $data)
+        return $this;
+    }
+    public function read_one(int $id)
     {
         return [];
     }
@@ -38,5 +64,24 @@ abstract class BaseModels extends Database implements InterfaceCRUD
     {
         $sql = "DELETE FROM " . $this->table . " WHERE id = $id";
         return true;
+    }
+    public function limit(int $limit = 10)
+    {
+        $stmt   = $this->_db->pdo_get_connection()->prepare($this->_query);
+        $result = $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function query($sql)
+    {
+        try {
+            $statement = $this->_db->pdo_get_connection()->prepare($sql);
+            $statement->execute();
+            return $statement;
+        } catch (Exception $ex) {
+            $mess = $ex->getMessage();
+            echo $mess;
+            die();
+        }
     }
 };

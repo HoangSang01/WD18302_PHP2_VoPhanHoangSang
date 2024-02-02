@@ -17,9 +17,13 @@ class Routes
     function __construct()
     {
         $this->request();
+        
         $this->renderController();
+        
         $this->renderMethod();
+        
     }
+
     function request()
     {
 

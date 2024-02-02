@@ -3,11 +3,11 @@
 namespace App\Controllers;
 
 use App\Core\RenderBase;
+use App\Controllers\LoginController;
 
 class HomeController extends BaseController
 
 {
-
     private $_renderBase;
     function __construct()
     {

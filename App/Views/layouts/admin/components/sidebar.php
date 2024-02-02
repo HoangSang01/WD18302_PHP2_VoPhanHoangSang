@@ -11,7 +11,7 @@
             </div>
             <div class="ms-3">
                 <h6 class="mb-0">Hoàng Sang</h6>
-                <span>Quản trị viên</span>
+                <a href="/?url=LoginController/logout">Đăng xuất</a>
             </div>
         </div>
         <div class="navbar-nav w-100">

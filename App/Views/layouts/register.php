@@ -12,18 +12,18 @@
 
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingText" placeholder="jhondoe" name="username">
-                        <label for="floatingText">Username</label>
+                        <label for="floatingText">Tên đăng nhập</label>
                     </div>
-                    <div class="form-floating mb-3">
+                    <!-- <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
                         <label for="floatingInput">Email</label>
-                    </div>
+                    </div> -->
                     <div class="form-floating mb-4">
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
                         <label for="floatingPassword">Mật khẩu</label>
                     </div>
                     <div class="form-floating mb-4">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password2">
                         <label for="floatingPassword">Nhập lại mật khẩu</label>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-4">

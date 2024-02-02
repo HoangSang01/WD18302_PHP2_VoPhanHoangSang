@@ -12,6 +12,12 @@
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
                         <label for="floatingInput">Tên đăng nhập</label>
+                        <?
+                        if (isset($_SESSION['error_message'])) {
+                            echo '<p style="color: red;">' . $_SESSION['error_message'] . '</p>';
+                            unset($_SESSION['error_message']);
+                        }
+                        ?>
                     </div>
                     <div class="form-floating mb-4">
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">

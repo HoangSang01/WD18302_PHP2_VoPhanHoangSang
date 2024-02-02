@@ -4,7 +4,7 @@ namespace App\Models;
 
 use PDO;
 
-trait QueryBuilder
+trait Query
 {
     public $tableName = '';
     public $where = '';
@@ -110,10 +110,10 @@ trait QueryBuilder
         return $this;
     }
 
-    public function insert($data)
+    public function insert($tableName, $data)
     {
-        $tableName    = $this->tableName;
-        $insertStatus = $this->insertData($tableName, $data);
+        $this->tableName = $tableName;
+        $insertStatus = $this->create($this->tableName, $data);
         return $insertStatus;
     }
 
@@ -161,7 +161,7 @@ trait QueryBuilder
         return false;
     }
 
-    
+
 
 
     public function resetQuery()
