@@ -47,6 +47,12 @@ $validate = new Validation;
                         unset($_SESSION['final_err']);
                         echo '</div>';
                     }
+                    if (isset($_SESSION['final_success'])) {
+                        echo '<div class="alert alert-success" role="alert">';
+                        $validate->displayErr($_SESSION['final_success']);
+                        unset($_SESSION['final_success']);
+                        echo '</div>';
+                    }
                     ?>
                     <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Đăng nhập</button>
                     <p class="text-center mb-0">Bạn chưa có tài khoản? <a href="?url=LoginController/register">Đăng ký</a></p>

@@ -44,25 +44,20 @@ class LoginController extends BaseController
 
     public function registerAction()
     {
-        // validation form
-
-        $userModel = new UserModels();
-
-        $user = $userModel->checkUserExist($_POST["username"]);
-
-        if ($user) {
-            echo 'Tài khoản đã tồn tại';
-        }
-        $userModel->createUser($_POST);
-        // //xác thực
-        if (password_verify($_POST['password'], $_POST['password2'])) {
-            // xử lý session
-            $userModel->createUser($_POST);
+        if ($this->_validation->validateRegister($_POST)) {
+            $userModel = new UserModels();
+            $user = $userModel->checkUserExist($_POST["username"]);
+            if (!$user) {
+                $userModel->createUser($_POST);
+                $_SESSION['final_success'] = 'Đăng ký thành công';
+                header('Location: ?url=LoginController/login');
+            } else {
+                $_SESSION['final_err'] = 'Tên đăng nhập đã tồn tại';
+                header('Location:?url=LoginController/register');
+            }
         } else {
-            echo 'sai mật khẩu';
+            header('location:?url=LoginController/register');
         }
-
-        // var_dump($_SESSION['user']);
     }
 
     public function loginAction()
@@ -73,7 +68,6 @@ class LoginController extends BaseController
             if ($user) {
                 $hashedPassword = password_hash($user['password'], PASSWORD_BCRYPT);
                 if (password_verify($_POST['password'], $hashedPassword)) {
-                    echo 'đăng nhập thành công';
                     setcookie("user_id", $user['id'], time() + 3600, "/");
                     $_SESSION['user'] = $user;
                     header('Location:?url=HomeController/HomePage');

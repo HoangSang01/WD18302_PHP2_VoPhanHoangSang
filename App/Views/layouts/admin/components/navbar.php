@@ -78,9 +78,8 @@
                 <span class="d-none d-lg-inline-flex">Võ Phan Hoàng Sang</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                <a href="#" class="dropdown-item">My Profile</a>
-                <a href="#" class="dropdown-item">Settings</a>
-                <a href="#" class="dropdown-item">Log Out</a>
+                <a href="?url=UserController/profile" class="dropdown-item">Tài khoản</a>
+                <a href="/?url=LoginController/logout" class="dropdown-item">Đăng xuất</a>
             </div>
         </div>
     </div>

@@ -114,10 +114,9 @@ trait Query
     {
         $this->tableName = $tableName;
         $insertStatus = $this->create($this->tableName, $data);
+        
         return $insertStatus;
-    }
-    public function lastInsertId()
-    {
+
     }
 
     public function update($data)

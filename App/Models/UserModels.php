@@ -3,21 +3,20 @@
 namespace App\Models;
 
 use App\Models\BaseModels;
-use App\Models\Database;
+use App\Models\Query;
+
 class UserModels extends BaseModels
 {
-    private $_conn = new Database;
     public $table = 'users';
     public $tableName = 'users';
     public function read_all_User()
     {
-        return $this->read_all($this->table)->get();
+        return $this->read_all($this->table)->join('user_info', 'users.id = user_info.user_id')->get();
     }
-    // public function checkUserExist($email)
-    // {
-    //     return $this->select()->where('email', '=', $email)->first();
-    // }
-
+    public function checkEmailExist($email)
+    {
+        return $this->select()->where('email', '=', $email)->first();
+    }
 
     public function checkUserExist($username)
     {
@@ -27,6 +26,5 @@ class UserModels extends BaseModels
     public function createUser($data)
     {
         $user = $this->insert($this->table, $data);
-        
     }
 }

@@ -24,9 +24,8 @@ class Render
         require 'App/Views/' . $file . '.php';
 
         $viewPath = __DIR__ . '/../Views/' .  $file . '.php';
-        // kiểm tra file view có tồn tại không
         if (!file_exists($viewPath)) {
-            throw new Exception('Không tìm thấy view nha');
+            throw new Exception('Không tìm thấy giao diện');
         }
     }
     /**

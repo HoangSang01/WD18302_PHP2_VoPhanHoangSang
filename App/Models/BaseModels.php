@@ -19,11 +19,21 @@ abstract class BaseModels extends Database implements InterfaceCRUD
     {
         $this->_db = new Database;
     }
+    // public function get()
+    // {
+    //     $stmt = $this->_db->pdo_get_connection()->prepare($this->_query);
+    //     $stmt->execute();
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
     public function get()
     {
-        $stmt = $this->_db->pdo_get_connection()->prepare($this->_query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // lấy từ query 
+        $sqlQuery = "SELECT $this->selectField FROM $this->tableName $this->innerJoin $this->leftJoin $this->where $this->groupBy  $this->orderBy  $this->limit";
+        $query    = $this->query($sqlQuery);
+        $this->resetQuery();
+        if (!empty($query))
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        return false;
     }
     public function create($table, array $data)
     {
@@ -40,7 +50,6 @@ abstract class BaseModels extends Database implements InterfaceCRUD
             $valueStr = rtrim($valueStr, ',');
             $sql      = "INSERT INTO  $table($fielStr) VALUES ($valueStr)";
             $status = $this->query($sql);
-            
             if (!$status)
                 return false;
         }

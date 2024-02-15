@@ -1,11 +1,3 @@
-<?
-
-use App\Models\UserModels;
-
-$data = new UserModels;
-$list = $data->read_all_User();
-?>
-
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-12">
@@ -26,12 +18,12 @@ $list = $data->read_all_User();
                             </tr>
                         </thead>
                         <tbody>
-                            <? foreach ($list as $value) :
+                            <? foreach ($data as $value) :
                                 extract($value) ?>
                                 <tr>
                                     <th scope="row"><?= $id ?></th>
                                     <td><?= $username ?></td>
-                                    <td></td>
+                                    <td><?= $email ?></td>
                                     <td>0907370341</td>
                                     <td>Hậu Giang</td>
                                     <td>Hoạt động</td>
