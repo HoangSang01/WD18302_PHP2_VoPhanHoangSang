@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Models\BaseModels;
-
+use App\Models\Database;
 class UserModels extends BaseModels
 {
+    private $_conn = new Database;
     public $table = 'users';
     public $tableName = 'users';
     public function read_all_User()
@@ -26,5 +27,6 @@ class UserModels extends BaseModels
     public function createUser($data)
     {
         $user = $this->insert($this->table, $data);
+        
     }
 }

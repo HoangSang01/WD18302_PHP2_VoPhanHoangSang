@@ -116,6 +116,9 @@ trait Query
         $insertStatus = $this->create($this->tableName, $data);
         return $insertStatus;
     }
+    public function lastInsertId()
+    {
+    }
 
     public function update($data)
     {
