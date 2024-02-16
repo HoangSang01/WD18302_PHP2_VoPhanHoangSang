@@ -38,8 +38,19 @@ class UserController extends BaseController
     function edit()
     {
         $this->_renderBase->renderHeader();
-        $this->load->render('layouts/admin/content/edit');
-        // render giao dien o day
+        $data = $this->_data->read_one_User($_GET['profile_id']);
+        // $address = $this->_data->read_user_address();
+        // var_dump($address);
+        $this->load->render('layouts/admin/content/edit', $data);
+        $this->_renderBase->renderFooter();
+    }
+    function edit_password()
+    {
+        $this->_renderBase->renderHeader();
+        $data = $this->_data->read_one_User($_GET['profile_id']);
+        // $address = $this->_data->read_user_address();
+        // var_dump($address);
+        $this->load->render('layouts/admin/content/edit_password', $data);
         $this->_renderBase->renderFooter();
     }
     function hidden()
@@ -52,9 +63,13 @@ class UserController extends BaseController
     function profile()
     {
         $this->_renderBase->renderHeader();
-        $data = $this->_data->read_one_User($_SESSION['user_id']);
+        $data = $this->_data->read_one_User($_GET['profile_id']);
         $this->load->render('layouts/admin/content/profile', $data);
         // render giao dien o day
         $this->_renderBase->renderFooter();
+    }
+    function editPassword()
+    {
+        
     }
 }

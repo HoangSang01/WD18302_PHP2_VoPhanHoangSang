@@ -8,6 +8,7 @@ use App\Models\Query;
 class UserModels extends BaseModels
 {
     public $table = 'users';
+    public $address = 'province';
     public $tableName = 'users';
     public function read_all_User_Actived()
     {
@@ -41,5 +42,9 @@ class UserModels extends BaseModels
     {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         return $hashed_password;
+    }
+
+    public function read_user_address()
+    {
     }
 }

@@ -28,7 +28,7 @@
             </div>
             <div class="clearfix">
                 <div class="float-end" role="status">
-                    <button type="button" class="btn btn-outline-warning m-2">Đổi mật khẩu</button>
+                    <a href="?url=UserController/edit_password&profile_id=<?=$user_id?>"><button type="button" class="btn btn-outline-warning m-2">Đổi mật khẩu</button></a>
                 </div>
             </div>
             <hr>
@@ -37,11 +37,13 @@
                     <b>Họ và tên</b>
                 </div>
                 <div class="col-sm-5">
-                    <? if ($full_name) {
-                        echo $full_name;
-                    } else {
-                        echo '<p class="text-muted">Chưa cập nhật</p>';
-                    } ?>
+                    <p>
+                        <? if ($full_name) {
+                            echo $full_name;
+                        } else {
+                            echo '<p class="text-muted">Chưa cập nhật</p>';
+                        } ?>
+                    </p>
                 </div>
             </div>
             <div class="row">
@@ -49,11 +51,13 @@
                     <b>Số điện thoại</b>
                 </div>
                 <div class="col-sm-5">
-                    <? if ($number) {
-                        echo $number;
-                    } else {
-                        echo '<p class="text-muted">Chưa cập nhật</p>';
-                    } ?>
+                    <p>
+                        <? if ($number) {
+                            echo $number;
+                        } else {
+                            echo '<p class="text-muted">Chưa cập nhật</p>';
+                        } ?>
+                    </p>
                 </div>
             </div>
             <div class="row">
@@ -70,17 +74,17 @@
                 </div>
                 <div class="col-sm-5">
                     <p>
-                    <? if ($province != 9999) {
-                        echo $ward_name . ', ' . $district_name . ', ' . $province_name;
-                    } else {
-                        echo '<p class="text-muted">Chưa cập nhật</p>';
-                    } ?>
+                        <? if ($province != 9999) {
+                            echo $ward_name . ', ' . $district_name . ', ' . $province_name;
+                        } else {
+                            echo '<p class="text-muted">Chưa cập nhật</p>';
+                        } ?>
                     </p>
                 </div>
             </div>
             <div class="clearfix">
                 <div class="float-end" role="status">
-                    <button type="button" class="btn btn-outline-warning m-2">Cập nhật thông tin</button>
+                    <a href="?url=UserController/edit&profile_id= <?= $user_id ?>"><button class="btn btn-outline-warning m-2">Cập nhật thông tin</button></a>
                 </div>
             </div>
             <hr>
