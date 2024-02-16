@@ -12,7 +12,7 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Số điện thoại</th>
                                 <th scope="col">Địa chỉ</th>
-                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Họ và tên</th>
                                 <th scope="col">Vai trò</th>
                                 <th scope="col">&nbsp;</th>
                             </tr>
@@ -21,13 +21,29 @@
                             <? foreach ($data as $value) :
                                 extract($value) ?>
                                 <tr>
-                                    <th scope="row"><?= $id ?></th>
+                                    <th scope="row"><?= $user_id ?></th>
                                     <td><?= $username ?></td>
                                     <td><?= $email ?></td>
-                                    <td>0907370341</td>
-                                    <td>Hậu Giang</td>
-                                    <td>Hoạt động</td>
-                                    <td>Quản trị viên</td>
+                                    <td><? if ($number) {
+                                            echo $number;
+                                        } else {
+                                            echo '<p class="text-muted">Chưa cập nhật</p>';
+                                        } ?></td>
+                                    <td><? if ($province != 9999) {
+                                            echo $province_name;
+                                        } else {
+                                            echo '<p class="text-muted">Chưa cập nhật</p>';
+                                        } ?></td>
+                                    <td><? if ($full_name) {
+                                            echo $full_name;
+                                        } else {
+                                            echo '<p class="text-muted">Chưa cập nhật</p>';
+                                        } ?></td>
+                                    <td><? if ($role == 1) {
+                                            echo $role_name;
+                                        } else {
+                                            echo '<p class="text-success">' . $role_name . '</p>';
+                                        } ?></td>
                                     <td style="padding-top:0px">
                                         <button style="float:right;" type="button" class="btn btn-square btn-outline-danger m-2"><i class="fas fa-trash"></i></button>
                                         <a href="/?url=UserController/edit"><button style="float:right;" type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-edit"></i></button></a>

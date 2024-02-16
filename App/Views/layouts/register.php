@@ -60,9 +60,10 @@ $validate = new Validation;
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <a href="" style="color:gray">Quên mật khẩu</a>
                     </div>
+
                     <?
                     if (isset($_SESSION['final_err'])) {
-                        echo '<div class="alert alert-danger" role="alert">';
+                        echo '<div class="p-2 mb-2 bg-success text-white">';
                         $validate->displayErr($_SESSION['final_err']);
                         unset($_SESSION['final_err']);
                         echo '</div>';

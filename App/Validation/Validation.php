@@ -28,7 +28,7 @@ class Validation
             $_SESSION['username_err'] = "Tên đăng nhập không được có khoảng trắng";
         }
         if ($this->checkSpecialCharacter($_POST['username'])) {
-            $_SESSION['username_err'] = "Tên đăng nhập không được chứa các kí tự đặc biệt";
+            $_SESSION['username_err'] = "Tên đăng nhập không được chứa khoảng trắng hoặc các kí tự đặc biệt";
         }
         if ($this->checkLength($_POST['username'], 6)) {
             $_SESSION['username_err'] = "Tên đăng nhập phải dài ít nhất 6 kí tự";
@@ -118,6 +118,6 @@ class Validation
     }
     public function displayErr($value)
     {
-        echo '<a style="color:red"><b>' . $value . '</b></a>';
+        echo '<a><b>' . $value . '</b></a>';
     }
 }

@@ -48,6 +48,7 @@ class LoginController extends BaseController
             $userModel = new UserModels();
             $user = $userModel->checkUserExist($_POST["username"]);
             if (!$user) {
+                $_POST['password'] = $userModel->hashPassword($_POST['password']);
                 $userModel->createUser($_POST);
                 $_SESSION['final_success'] = 'Đăng ký thành công';
                 header('Location: ?url=LoginController/login');
@@ -66,10 +67,9 @@ class LoginController extends BaseController
             $userModel = new UserModels();
             $user = $userModel->checkUserExist($_POST["username"]);
             if ($user) {
-                $hashedPassword = password_hash($user['password'], PASSWORD_BCRYPT);
-                if (password_verify($_POST['password'], $hashedPassword)) {
-                    setcookie("user_id", $user['id'], time() + 3600, "/");
-                    $_SESSION['user'] = $user;
+                if (password_verify($_POST['password'], $user['password'])) {
+                    setcookie("user_id", $user['user_id'], time() + 3600, "/");
+                    $_SESSION['user_id'] = $user['user_id'];
                     header('Location:?url=HomeController/HomePage');
                 } else {
                     $_SESSION['final_err'] = 'Sai mật khẩu';
