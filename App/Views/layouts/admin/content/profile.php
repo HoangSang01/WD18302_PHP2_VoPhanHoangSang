@@ -20,17 +20,29 @@
             </div>
             <div class="row">
                 <div class="col-sm-4">
-                    <b>Lần đổi mật khẩu gần nhất</b>
+                    <p><b>Lần đổi mật khẩu gần nhất</b></p>
                 </div>
                 <div class="col-sm-5">
-                    <p>*** giờ trước</p>
+                    <? if (isset($time)) {
+                        echo $time;
+                    } else {
+                        echo '<p class="text-muted">Chưa cập nhật</p>';
+                    } ?>
                 </div>
             </div>
+            <?
+            if ($_GET['profile_id'] ==  $_SESSION['user_id'])
+                echo '
             <div class="clearfix">
-                <div class="float-end" role="status">
-                    <a href="?url=UserController/edit_password&profile_id=<?=$user_id?>"><button type="button" class="btn btn-outline-warning m-2">Đổi mật khẩu</button></a>
-                </div>
+            <div class="float-end" role="status">
+            <a href="?url=UserController/edit_password&profile_id=' . $user_id . '"><button type="button" class="btn btn-outline-warning m-2">Đổi mật khẩu</button></a>
             </div>
+            </div>';
+            if (isset($_SESSION['final_success'])) {
+                echo '<div class="p-2 mb-2 bg-success text-white">' . $_SESSION['final_success'] . '</div>';
+                unset($_SESSION['final_success']);
+            }
+            ?>
             <hr>
             <div class="row">
                 <div class="col-sm-4">

@@ -69,6 +69,33 @@ class Validation
             return false;
         }
     }
+
+    public function validateEditPassword($value)
+    {
+        if ($this->checkEmpty($_POST['oldPassword'])) {
+            $_SESSION['password_err'] = "Không được để trống mật khẩu cũ";
+            return false;
+        } else
+        if ($this->checkEmpty($_POST['newPassword'])) {
+            $_SESSION['password2_err'] = "Không được để trống mật khẩu mới";
+            return false;
+        } else
+        if ($this->checkLength($_POST['newPassword'], 6)) {
+            $_SESSION['password2_err'] = "Mật khẩu phải dài ít nhất 6 kí tự";
+            return false;
+        }
+        if ($this->checkSpace($_POST['newPassword'])) {
+            $_SESSION['password2_err'] = "Mật khẩu không được có khoảng trắng";
+            return false;
+        } else
+        if ($this->checkPasswordMatch($_POST['newPassword'], $_POST['confirmPassword'])) {
+            $_SESSION['password3_err'] = "Mật khẩu không khớp";
+            return false;
+        } else {
+            unset($_POST['confirmPassword']);
+            return true;
+        }
+    }
     public function checkEmail($email)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

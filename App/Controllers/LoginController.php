@@ -37,7 +37,9 @@ class LoginController extends BaseController
 
     public function Logout()
     {
-        unset($_SESSION['user']);
+        $userModel = new UserModels();
+        $userModel->user_activity($_SESSION['user_id'], 'Đăng xuất');
+        unset($_SESSION['user_id']);
         setcookie("user_id", "", time() - 3600, "/");
         header('Location:?url=LoginController/Login');
     }
@@ -70,6 +72,7 @@ class LoginController extends BaseController
                 if (password_verify($_POST['password'], $user['password'])) {
                     setcookie("user_id", $user['user_id'], time() + 3600, "/");
                     $_SESSION['user_id'] = $user['user_id'];
+                    $userModel->user_activity($_SESSION['user_id'], 'Đăng nhập');
                     header('Location:?url=HomeController/HomePage');
                 } else {
                     $_SESSION['final_err'] = 'Sai mật khẩu';

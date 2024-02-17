@@ -11,8 +11,8 @@
                                 <th scope="col">Tài khoản</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Số điện thoại</th>
-                                <th scope="col">Địa chỉ</th>
                                 <th scope="col">Họ và tên</th>
+                                <th scope="col">Địa chỉ</th>
                                 <th scope="col">Vai trò</th>
                                 <th scope="col">&nbsp;</th>
                             </tr>
@@ -29,13 +29,13 @@
                                         } else {
                                             echo '<p class="text-muted">Chưa cập nhật</p>';
                                         } ?></td>
-                                    <td><? if ($province != 9999) {
-                                            echo $province_name;
+                                    <td><? if ($full_name) {
+                                            echo $full_name;
                                         } else {
                                             echo '<p class="text-muted">Chưa cập nhật</p>';
                                         } ?></td>
-                                    <td><? if ($full_name) {
-                                            echo $full_name;
+                                    <td><? if ($province != 9999) {
+                                            echo $province_name;
                                         } else {
                                             echo '<p class="text-muted">Chưa cập nhật</p>';
                                         } ?></td>

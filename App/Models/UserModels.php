@@ -27,6 +27,10 @@ class UserModels extends BaseModels
     {
         return $this->select()->where('username', '=', $username)->first();
     }
+    public function checkUserId($id)
+    {
+        return $this->select()->where('user_id', '=', $id)->first();
+    }
 
     public function createUser($data)
     {
@@ -44,7 +48,42 @@ class UserModels extends BaseModels
         return $hashed_password;
     }
 
-    public function read_user_address()
+    public function update_user_password($user_id, $password)
     {
+        $passwordHashed = $this->hashPassword($password);
+        $data = array(
+            'password' => $passwordHashed
+        );
+        $condition = "user_id = $user_id";
+        return $this->updateData($this->table, $data, $condition);
+    }
+
+    public function read_one_activity($user_id, $activity)
+    {
+        return $this->table('activities')->select()->where('uid', '=', $user_id)->whereLike('activity', $activity)->first();
+    }
+    public function read_all_activity($user_id)
+    {
+        return $this->table('activities')->select()->where('uid', '=', $user_id)->get();
+    }
+
+    public function user_activity($uid, $activity)
+    {
+        $date = date('Y-m-d H:i:s');
+        $checkActivity = $this->table('activities')->select()->where('uid', '=', $uid)->whereLike('activity', $activity)->first();
+        if ($checkActivity) {
+            $data = array(
+                'activity_time' => "'$date'"
+            );
+            $condition = "activity_id = " . $checkActivity['activity_id'];
+            return $this->updateData('activities', $data, $condition);
+        } else {
+            $data = array(
+                'uid' => $uid,
+                'activity' => $activity,
+                'activity_time' => $date
+            );
+            return $this->insert('activities', $data);
+        }
     }
 }
