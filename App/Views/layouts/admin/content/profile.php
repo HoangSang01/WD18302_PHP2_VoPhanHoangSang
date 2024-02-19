@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <div class="container-fluid pt-4 px-4">
     <div class="col-sm-12 col-xl-6 mx-auto">
         <div class="bg-secondary rounded h-100 p-4">
@@ -49,13 +51,11 @@
                     <b>Họ và tên</b>
                 </div>
                 <div class="col-sm-5">
-                    <p>
-                        <? if ($full_name) {
-                            echo $full_name;
-                        } else {
-                            echo '<p class="text-muted">Chưa cập nhật</p>';
-                        } ?>
-                    </p>
+                    <? if ($full_name) {
+                        echo '<p>' . $full_name . '</p>';
+                    } else {
+                        echo '<p class="text-muted">Chưa cập nhật</p>';
+                    } ?>
                 </div>
             </div>
             <div class="row">
@@ -63,13 +63,11 @@
                     <b>Số điện thoại</b>
                 </div>
                 <div class="col-sm-5">
-                    <p>
-                        <? if ($number) {
-                            echo $number;
-                        } else {
-                            echo '<p class="text-muted">Chưa cập nhật</p>';
-                        } ?>
-                    </p>
+                    <? if ($number) {
+                        echo '<p>' . $number . '</p>';
+                    } else {
+                        echo '<p class="text-muted">Chưa cập nhật</p>';
+                    } ?>
                 </div>
             </div>
             <div class="row">
@@ -94,11 +92,15 @@
                     </p>
                 </div>
             </div>
-            <div class="clearfix">
+            <?
+            if (!isset($_GET['hidden'])) {
+                echo '<div class="clearfix">
                 <div class="float-end" role="status">
-                    <a href="?url=UserController/edit&profile_id= <?= $user_id ?>"><button class="btn btn-outline-warning m-2">Cập nhật thông tin</button></a>
+                    <a href="?url=UserController/edit&profile_id=' . $user_id . '"><button class="btn btn-outline-warning m-2">Cập nhật thông tin</button></a>
                 </div>
-            </div>
+            </div>';
+            };
+            ?>
             <hr>
             <div class="row">
                 <div class="col-sm-4">
@@ -127,7 +129,56 @@
                         echo $formattedDate; ?></p>
                 </div>
             </div>
+            <?
+            if (isset($_GET['hidden'])) {
+            ?>
+                <div class="clearfix">
+                    <div class="float-end" role="status">
+                        <button type="button" class="btn btn-outline-success m-2" onclick="return submitForm(<?= $user_id ?>)">Khôi phục tài khoản</button>
+                    </div>
+                </div>';
+            <? } else {
+            ?>
+                <div class="clearfix">
+                    <div class="float-end" role="status">
+                        <button type="button" class="btn btn-outline-danger m-2" onclick="return submitForm2(<?= $user_id ?>)">Vô hiệu hoá tài khoản</button>
+                    </div>
+                </div>';
+            <?
+            };
+            ?>
 
         </div>
     </div>
 </div>
+<script>
+    function submitForm(user_id) {
+
+        swal({
+            title: 'Xác nhận khôi phục tài khoản',
+            text: 'Tài khoản sẽ được khôi phục và lưu vào danh sách tài khoản hoạt động',
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                window.location.href = '?url=UserController/recovery&user_id=' + user_id;
+            }
+        });
+    }
+
+    function submitForm2(user_id) {
+
+        swal({
+            title: 'Xác nhận vô hiệu hoá tài khoản',
+            text: 'Tài khoản sẽ bị ẩn khỏi hệ thống và lưu vào kho lưu trữ',
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                window.location.href = '?url=UserController/delete&user_id=' + user_id;
+            }
+        });
+    }
+</script>

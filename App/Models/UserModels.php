@@ -23,6 +23,16 @@ class UserModels extends BaseModels
         return $this->select()->where('email', '=', $email)->first();
     }
 
+    public function checkUserRole($user_id, $role)
+    {
+        if ($role == 'admin') {
+            $role = 2;
+            return $this->select()->where('user_id', '=', $user_id)->where('role', '=', '2')->first();
+        } else {
+            $role = 1;
+            return $this->select()->where('user_id', '=', $user_id)->where('role', '=', '1')->first();
+        }
+    }
     public function checkUserExist($username)
     {
         return $this->select()->where('username', '=', $username)->first();
@@ -54,6 +64,21 @@ class UserModels extends BaseModels
         $data = array(
             'password' => $passwordHashed
         );
+        $condition = "user_id = $user_id";
+        return $this->updateData($this->table, $data, $condition);
+    }
+
+    public function update_user_status($user_id, $status)
+    {
+        if ($status == 'active') {
+            $data = array(
+                'status' => 1
+            );
+        } else {
+            $data = array(
+                'status' => 2
+            );
+        }
         $condition = "user_id = $user_id";
         return $this->updateData($this->table, $data, $condition);
     }

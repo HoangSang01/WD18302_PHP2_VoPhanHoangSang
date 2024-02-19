@@ -51,6 +51,23 @@ class UserController extends BaseController
         $this->load->render('layouts/admin/content/edit', $data);
         $this->_renderBase->renderFooter();
     }
+    function delete()
+    {
+        if ($this->_data->checkUserRole($_GET['user_id'], 'user')) {
+            $this->_data->update_user_status($_GET['user_id'], 'inactive');
+            $_SESSION['final_success'] = "Vô hiệu hoá người dùng thành công";
+            header('location:?url=UserController/list');
+        } else {
+            $_SESSION['final_err'] = "Không thể vô hiệu hoá quản trị viên, hãy thay đổi vai trò tài khoản trước";
+            header('location:?url=UserController/list');
+        }
+    }
+    function recovery()
+    {
+        $this->_data->update_user_status($_GET['user_id'], 'active');
+        $_SESSION['final_success'] = "Khôi phục người dùng thành công";
+        header('location:?url=UserController/hidden');
+    }
     function edit_password()
     {
         $this->_renderBase->renderHeader();
@@ -64,7 +81,7 @@ class UserController extends BaseController
     {
         $this->_renderBase->renderHeader();
         $data = $this->_data->read_all_User_Inactived();
-        $this->load->render('layouts/admin/content/list', $data);
+        $this->load->render('layouts/admin/content/hidden', $data);
         $this->_renderBase->renderFooter();
     }
     function profile()
@@ -75,7 +92,6 @@ class UserController extends BaseController
             $time = $this->_data->read_one_activity($data['user_id'], 'Đổi mật khẩu');
             $data['time'] = $this->_time->timecount($time['activity_time']);
         }
-
         $this->load->render('layouts/admin/content/profile', $data);
         // render giao dien o day
         $this->_renderBase->renderFooter();
