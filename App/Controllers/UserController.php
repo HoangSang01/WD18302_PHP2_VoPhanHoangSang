@@ -116,4 +116,8 @@ class UserController extends BaseController
             header('location:?url=UserController/edit_password&profile_id=' . $_POST['profile_id']);
         }
     }
+    function edit_action()
+    {
+        var_dump($_POST);
+    }
 }
