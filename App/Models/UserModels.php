@@ -12,11 +12,11 @@ class UserModels extends BaseModels
     public $tableName = 'users';
     public function read_all_User_Actived()
     {
-        return $this->read_all($this->table)->join('roles', 'users.role=roles.id')->join('status', 'users.status=status.id')->join('province', 'users.province=province.province_id')->where('status', '=', '1')->orderBy('role', 'DESC')->get();
+        return $this->read_all($this->table)->join('roles', 'users.role=roles.id')->join('status', 'users.status=status.id')->where('status', '=', '1')->orderBy('role', 'DESC')->get();
     }
     public function read_all_User_Inactived()
     {
-        return $this->read_all($this->table)->join('roles', 'users.role=roles.id')->join('status', 'users.status=status.id')->join('province', 'users.province=province.province_id')->where('status', '=', '2')->orderBy('role', 'DESC')->get();
+        return $this->read_all($this->table)->join('roles', 'users.role=roles.id')->join('status', 'users.status=status.id')->where('status', '=', '2')->orderBy('role', 'DESC')->get();
     }
     public function checkEmailExist($email)
     {
@@ -49,7 +49,7 @@ class UserModels extends BaseModels
 
     public function read_one_User($user_id)
     {
-        return $this->select()->where('user_id', '=', $user_id)->join('status', 'users.status=status.id')->join('roles', 'users.role=roles.id')->join('province', 'users.province=province.province_id')->join('district', 'users.district=district.district_id')->join('wards', 'users.ward=wards.wards_id')->first();
+        return $this->select()->where('user_id', '=', $user_id)->join('status', 'users.status=status.id')->join('roles', 'users.role=roles.id')->first();
     }
 
     public function hashPassword($password)
@@ -68,12 +68,8 @@ class UserModels extends BaseModels
         return $this->updateData($this->table, $data, $condition);
     }
 
-    public function update_user_info($value)
+    public function update_user_info($user_id, $data)
     {
-        echo $POST['user_id'];
-        $data = array(
-            'password' => $passwordHashed
-        );
         $condition = "user_id = $user_id";
         return $this->updateData($this->table, $data, $condition);
     }

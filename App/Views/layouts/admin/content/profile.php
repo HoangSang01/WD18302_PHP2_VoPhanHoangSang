@@ -1,5 +1,14 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<?php
+if (isset($_SESSION['final_success'])) {
+?>
+    <script>
+        swal("Hoàn tất", "<?= $_SESSION['final_success'] ?>", "success");
+    </script>
+<?php
+    unset($_SESSION['final_success']);
+}
+?>
 <div class="container-fluid pt-4 px-4">
     <div class="col-sm-12 col-xl-6 mx-auto">
         <div class="bg-secondary rounded h-100 p-4">
@@ -83,13 +92,11 @@
                     <b>Địa chỉ</b>
                 </div>
                 <div class="col-sm-5">
-                    <p>
-                        <? if ($province != 9999) {
-                            echo $ward_name . ', ' . $district_name . ', ' . $province_name;
-                        } else {
-                            echo '<p class="text-muted">Chưa cập nhật</p>';
-                        } ?>
-                    </p>
+                    <? if (isset($cityName)) {
+                        echo '<p>' . $wardName . ', ' . $districtName . ', ' . $cityName . '</p>';
+                    } else {
+                        echo '<p class="text-muted">Chưa cập nhật</p>';
+                    } ?>
                 </div>
             </div>
             <?
@@ -136,14 +143,14 @@
                     <div class="float-end" role="status">
                         <button type="button" class="btn btn-outline-success m-2" onclick="return submitForm(<?= $user_id ?>)">Khôi phục tài khoản</button>
                     </div>
-                </div>';
+                </div>
             <? } else {
             ?>
                 <div class="clearfix">
                     <div class="float-end" role="status">
                         <button type="button" class="btn btn-outline-danger m-2" onclick="return submitForm2(<?= $user_id ?>)">Vô hiệu hoá tài khoản</button>
                     </div>
-                </div>';
+                </div>
             <?
             };
             ?>

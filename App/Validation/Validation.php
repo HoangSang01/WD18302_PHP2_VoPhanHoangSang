@@ -96,12 +96,56 @@ class Validation
             return true;
         }
     }
+    public function validateEditProfile($value)
+    {
+        if ($this->checkSpecialCharacter($_POST['full_name'])) {
+            $_SESSION['full_name_err'] = "Tên người dùng không được chứa các kí tự đặc biệt";
+        }
+        if ($this->checkEmail($_POST['email'])) {
+            $_SESSION['email_err'] = "Email không hợp lệ";
+        }
+        if ($this->checkEmpty($_POST['email'])) {
+            $_SESSION['email_err'] = "Không được để trống email";
+        }
+        if ($this->checkPhoneNumber($_POST['number'])) {
+            $_SESSION['number_err'] = "Số điện thoại không hợp lệ";
+        }
+        if ($this->checkEmpty($_POST['cityName'])) {
+            $_SESSION['cityName_err'] = "Vui lòng chọn tỉnh/thành phố";
+        }
+        if ($this->checkEmpty($_POST['districtName'])) {
+            $_SESSION['districtName_err'] = "Vui lòng chọn quận/huyện";
+        }
+        if ($this->checkEmpty($_POST['wardName'])) {
+            $_SESSION['wardName_err'] = "Vui lòng chọn phường/xã";
+        }
+        if (!isset($_SESSION['full_name_err']) && !isset($_SESSION['phone_err']) && !isset($_SESSION['email_err'])  && !isset($_SESSION['cityName_err']) && !isset($_SESSION['districtName_err']) && !isset($_SESSION['wardName_err'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function checkEmail($email)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return true;
         }
 
+        return false;
+    }
+    public function checkPhoneNumber($number)
+    {
+        $number = preg_replace('/[^0-9]/', '', $number);
+        $number = preg_replace('/[^0-9]/', '', $number);
+        if (strlen($number) != 10 && strlen($number) != 11) {
+            return true;
+        }
+        if (substr($number, 0, 1) != '0') {
+            return true;
+        }
+        if (strlen($number) == 10 && !preg_match('/^(0)?(90|93|97|96|98|32|33|34|35|36|37|38|39|88|91|94|83|84|85|81|82|89|56|58|99|87|79|78|77|76|70|89|92|56|58|89)\d{7}$/', $number)) {
+            return true;
+        }
         return false;
     }
 
@@ -121,7 +165,7 @@ class Validation
     }
     public function checkSpecialCharacter($key)
     {
-        if (!preg_match('/^[a-zA-Z0-9]+$/', $key)) {
+        if (preg_match('/^[a-zA-Z0-9]+$/', $key)) {
             return true;
         }
         return false;

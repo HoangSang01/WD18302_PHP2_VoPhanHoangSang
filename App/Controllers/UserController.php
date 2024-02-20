@@ -122,6 +122,15 @@ class UserController extends BaseController
     }
     function edit_action()
     {
-        var_dump($_POST);
+        $user_id = $_POST['user_id'];
+        unset($_POST['user_id']);
+        if ($this->_validation->validateEditProfile($_POST)) {
+            $usermModel = new UserModels;
+            $usermModel->update_user_info($user_id, $_POST);
+            $_SESSION['final_success'] = "Thay đổi thông tin người dùng thành công";
+            header('location:?url=UserController/profile&profile_id=' . $user_id);
+        } else {
+            header('location:?url=UserController/edit&profile_id=' . $user_id);
+        }
     }
 }

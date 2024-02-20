@@ -67,8 +67,8 @@ if (isset($_SESSION['final_err'])) {
                                         } else {
                                             echo '<p class="text-muted">Chưa cập nhật</p>';
                                         } ?></td>
-                                    <td><? if ($province != 9999) {
-                                            echo $province_name;
+                                    <td><? if ($cityName) {
+                                            echo $cityName;
                                         } else {
                                             echo '<p class="text-muted">Chưa cập nhật</p>';
                                         } ?></td>

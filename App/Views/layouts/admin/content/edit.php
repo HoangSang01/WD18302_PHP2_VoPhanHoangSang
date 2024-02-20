@@ -6,25 +6,61 @@
                 <div class="mb-3">
                     <label class="form-label">Họ và tên</label>
                     <input value="<?= $full_name ?>" type="text" class="form-control" id="email" name="full_name">
+                    <?
+                    if (isset($_SESSION['full_name_err'])) {
+                        echo '<p style="color: red;">' . $_SESSION['full_name_err']  . '</p>';
+                        unset($_SESSION['full_name_err']);
+                    }
+                    ?>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email</label>
                     <input value="<?= $email ?>" value="email" type="text" class="form-control" id="email" name="email">
+                    <?
+                    if (isset($_SESSION['email_err'])) {
+                        echo '<p style="color: red;">' . $_SESSION['email_err']  . '</p>';
+                        unset($_SESSION['email_err']);
+                    }
+                    ?>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Số điện thoại</label>
                     <input value="<?= $number ?>" value="number" type="text" class="form-control" id="number" name="number">
+                    <?
+                    if (isset($_SESSION['phone_err'])) {
+                        echo '<p style="color: red;">' . $_SESSION['phone_err']  . '</p>';
+                        unset($_SESSION['phone_err']);
+                    }
+                    ?>
                 </div>
                 <h6 class="mb-4">Địa chỉ</h6>
                 <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" id="city">
                     <option value="" selected>Chọn tỉnh/thành phố</option>
                 </select>
+                <?
+                if (isset($_SESSION['cityName_err'])) {
+                    echo '<p style="color: red;">' . $_SESSION['cityName_err']  . '</p>';
+                    unset($_SESSION['cityName_err']);
+                }
+                ?>
                 <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" id="district">
                     <option value="" selected>Chọn quận/huyện</option>
                 </select>
+                <?
+                if (isset($_SESSION['districtName_err'])) {
+                    echo '<p style="color: red;">' . $_SESSION['districtName_err']  . '</p>';
+                    unset($_SESSION['districtName_err']);
+                }
+                ?>
                 <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" id="ward">
                     <option value="" selected>Chọn phường/xã</option>
                 </select>
+                <?
+                if (isset($_SESSION['wardName_err'])) {
+                    echo '<p style="color: red;">' . $_SESSION['wardName_err']  . '</p>';
+                    unset($_SESSION['wardName_err']);
+                }
+                ?>
                 <input type="hidden" id="cityName" name="cityName" value="">
                 <input type="hidden" id="districtName" name="districtName" value="">
                 <input type="hidden" id="wardName" name="wardName" value="">
