@@ -18,11 +18,15 @@ class UserController extends BaseController
     private $_time;
     function __construct()
     {
-        parent::__construct();
-        $this->_renderBase = new RenderBase();
-        $this->_data = new UserModels();
-        $this->_validation = new Validation;
-        $this->_time = new Time();
+        if (!isset($_COOKIE['user_id'])) {
+            $this->redirect('?url=LoginController/login');
+        } else {
+            parent::__construct();
+            $this->_renderBase = new RenderBase();
+            $this->_data = new UserModels();
+            $this->_validation = new Validation;
+            $this->_time = new Time();
+        }
     }
     function UserController()
     {

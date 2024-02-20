@@ -70,7 +70,7 @@ if (isset($_SESSION['final_success'])) {
                                             echo '<p class="text-success">' . $role_name . '</p>';
                                         } ?></td>
                                     <td style="padding-top:0px;width:8%">
-                                        <button onclick="return submitForm(<?= $user_id ?>)" style="float:right;" class="btn btn-square btn-outline-danger m-2"> <i class="fas fa-trash"></i></button>
+                                        <button onclick="return submitForm(<?= $user_id ?>)" style="float:right;" class="btn btn-square btn-outline-danger m-2"> <i class="fa fa-undo"></i></button>
                                         <a href="?url=UserController/profile&profile_id=<?= $user_id ?>&hidden=yes"><button style="float:right;" type="submit" class="btn btn-square btn-outline-info m-2"><i class="fa fa-info-circle"></i></button></a>
                                     </td>
                                 </tr>

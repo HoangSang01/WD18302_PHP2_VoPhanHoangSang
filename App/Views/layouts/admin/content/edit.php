@@ -25,9 +25,9 @@
                 <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" id="ward">
                     <option value="" selected>Chọn phường/xã</option>
                 </select>
-                <input type="hidden" id="cityId" name="cityId" value="">
-                <input type="hidden" id="districtId" name="districtId" value="">
-                <input type="hidden" id="wardId" name="wardId" value="">
+                <input type="hidden" id="cityName" name="cityName" value="">
+                <input type="hidden" id="districtName" name="districtName" value="">
+                <input type="hidden" id="wardName" name="wardName" value="">
                 <fieldset class="row mb-3">
                     <legend class="col-form-label col-sm-2 pt-0">Vai trò</legend>
                     <div class="col-sm-10">
@@ -142,22 +142,19 @@
         };
     }
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#city').change(function() {
-            var cityId = $(this).val();
-            $('#cityId').val(cityId);
-        });
+    $('#city').change(function() {
+        var cityName = $(this).find('option:selected').text();
+        $('#cityName').val(cityName);
+    });
 
-        $('#district').change(function() {
-            var districtId = $(this).val();
-            $('#districtId').val(districtId);
-        });
+    $('#district').change(function() {
+        var districtName = $(this).find('option:selected').text();
+        $('#districtName').val(districtName);
+    });
 
-        $('#ward').change(function() {
-            var wardId = $(this).val();
-            $('#wardId').val(wardId);
-        });
+    $('#ward').change(function() {
+        var wardName = $(this).find('option:selected').text();
+        $('#wardName').val(wardName);
     });
 </script>

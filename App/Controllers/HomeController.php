@@ -16,7 +16,11 @@ class HomeController extends BaseController
     }
     function HomeController()
     {
-        $this->homePage();
+        if (!isset($_COOKIE['user_id'])) {
+            $this->redirect('?url=LoginController/login');
+        } else {
+            $this->homePage();
+        }
     }
     function homePage()
     {

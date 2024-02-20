@@ -68,6 +68,16 @@ class UserModels extends BaseModels
         return $this->updateData($this->table, $data, $condition);
     }
 
+    public function update_user_info($value)
+    {
+        echo $POST['user_id'];
+        $data = array(
+            'password' => $passwordHashed
+        );
+        $condition = "user_id = $user_id";
+        return $this->updateData($this->table, $data, $condition);
+    }
+
     public function update_user_status($user_id, $status)
     {
         if ($status == 'active') {

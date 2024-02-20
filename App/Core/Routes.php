@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Controllers\HomeController;
+
 class Routes
 {
     public $url;
@@ -37,11 +39,13 @@ class Routes
 
     function renderController()
     {
+
         if (!isset($this->url[0])) {
             $className        = $this->path . $this->nameController;
             $className        = preg_replace("~\/~", "\\", $className);
             $this->controller = new $className;
-            $this->controller->HomeController();
+            // $this->controller->HomeController();
+            header('location:?url=Homecontroller/Homecontroller');
         } else {
             $this->nameController = $this->url[0];
             $file                 = __DIR__ . '/../Controllers/' . $this->nameController . '.php';
@@ -63,6 +67,7 @@ class Routes
     }
     function renderMethod()
     {
+
         if (isset($this->url[2])) {
             $this->nameMethod = $this->url[1];
             // Kiểm tra xem có tồn tại method vừa gán
@@ -82,6 +87,12 @@ class Routes
                     header('Location:' . ROOT_URL . 'HomeController/Error');
                 }
             }
+        }
+    }
+    function checkLogged()
+    {
+        if (!isset($_COOKIE['user_id'])) {
+            header("Location:?url=LoginController/login");
         }
     }
 }

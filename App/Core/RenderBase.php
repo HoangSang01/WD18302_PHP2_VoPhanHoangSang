@@ -30,7 +30,7 @@ class RenderBase extends BaseController
         $this->load->render('layouts/admin/components/header');
     }
 
-    
+
 
     /**
      * @throws Exception
@@ -38,5 +38,9 @@ class RenderBase extends BaseController
     public function renderFooter()
     {
         $this->load->render('layouts/admin/components/footer');
+    }
+    public function renderLogin()
+    {
+        $this->load->render('layouts/login');
     }
 }
