@@ -44,7 +44,7 @@ class UserModels extends BaseModels
 
     public function createUser($data)
     {
-        $user = $this->insert($this->table, $data);
+        return $this->insert($this->table, $data);
     }
 
     public function read_one_User($user_id)
@@ -68,21 +68,31 @@ class UserModels extends BaseModels
         return $this->updateData($this->table, $data, $condition);
     }
 
-    public function update_user_info($user_id, $data)
+    public function update_user_info($user_id, $post)
     {
-        $condition = "user_id = $user_id";
-        return $this->updateData($this->table, $data, $condition);
+        $data = array(
+            'full_name' => isset($post['full_name']) ? "'" . addslashes($post['full_name']) . "'" : '',
+            'email' => $post['email'],
+            'number' => $post['number'],
+            'cityName' => isset($post['cityName']) ? "'" . addslashes($post['cityName']) . "'" : '',
+            'districtName' => isset($post['districtName']) ? "'" . addslashes($post['districtName']) . "'" : '',
+            'wardName' => isset($post['wardName']) ? "'" . addslashes($post['wardName']) . "'" : '',
+            'role' => $post['role']
+        );
+        $user_id = rtrim($user_id, "'");
+        $condition = "user_id =$user_id";
+        $this->updateData($this->table, $data, $condition);
     }
 
     public function update_user_status($user_id, $status)
     {
         if ($status == 'active') {
             $data = array(
-                'status' => 1
+                'status' => '1'
             );
         } else {
             $data = array(
-                'status' => 2
+                'status' => '2'
             );
         }
         $condition = "user_id = $user_id";
@@ -116,5 +126,9 @@ class UserModels extends BaseModels
             );
             return $this->insert('activities', $data);
         }
+    }
+    public function getLastInsertedId()
+    {
+        return $this->lastId();
     }
 }

@@ -35,7 +35,7 @@
                 </div>
                 <h6 class="mb-4">Địa chỉ</h6>
                 <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" id="city">
-                    <option value="" selected>Chọn tỉnh/thành phố</option>
+                    <option value="" selected><?= $cityName ?></option>
                 </select>
                 <?
                 if (isset($_SESSION['cityName_err'])) {
@@ -44,7 +44,7 @@
                 }
                 ?>
                 <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" id="district">
-                    <option value="" selected>Chọn quận/huyện</option>
+                    <option value="" selected><?= $districtName ?></option>
                 </select>
                 <?
                 if (isset($_SESSION['districtName_err'])) {
@@ -53,7 +53,7 @@
                 }
                 ?>
                 <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" id="ward">
-                    <option value="" selected>Chọn phường/xã</option>
+                    <option value="" selected><?= $wardName ?></option>
                 </select>
                 <?
                 if (isset($_SESSION['wardName_err'])) {
@@ -61,9 +61,9 @@
                     unset($_SESSION['wardName_err']);
                 }
                 ?>
-                <input type="hidden" id="cityName" name="cityName" value="">
-                <input type="hidden" id="districtName" name="districtName" value="">
-                <input type="hidden" id="wardName" name="wardName" value="">
+                <input type="hidden" id="cityName" name="cityName" value="<?= $cityName ?>">
+                <input type="hidden" id="districtName" name="districtName" value="<?= $districtName ?>">
+                <input type="hidden" id="wardName" name="wardName" value="<?= $wardName ?>">
                 <fieldset class="row mb-3">
                     <legend class="col-form-label col-sm-2 pt-0">Vai trò</legend>
                     <div class="col-sm-10">
@@ -91,13 +91,10 @@
                 </fieldset>
                 <div class="clearfix">
                     <div class="float-end" role="status">
-                        <form action="?url=UserController/edit" method="POST">
-                            <input type="hidden" name="user_id" value="<?= $_GET['profile_id'] ?>">
-                            <button type="submit" class="btn btn-outline-success m-2">Thay đổi thông tin</button>
-                        </form>
+                        <input type="hidden" name="user_id" value="<?= $_GET['profile_id'] ?>">
+                        <button type="submit" class="btn btn-outline-success m-2">Thay đổi thông tin</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>

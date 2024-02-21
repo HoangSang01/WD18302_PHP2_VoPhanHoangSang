@@ -3,7 +3,7 @@
 if (isset($_SESSION['final_success'])) {
 ?>
     <script>
-        swal("Hoàn tất", "Vô hiệu hoá người dùng thành công", "success");
+        swal("Hoàn tất", "<?=$_SESSION['final_success']?>", "success");
     </script>
 <?php
     unset($_SESSION['final_success']);
@@ -22,20 +22,6 @@ if (isset($_SESSION['final_err'])) {
         <div class="col-12">
             <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4">Danh sách người dùng</h6>
-                <!-- <?
-                        if (isset($_SESSION['final_err'])) {
-                            echo '<div class="alert alert-danger" role="alert">';
-                            unset($_SESSION['final_err']);
-                            echo '</div>';
-                        }
-                        if (isset($_SESSION['final_success'])) {
-                            echo '<div class="alert alert-success" role="alert"></div>.
-                    ';
-                            unset($_SESSION['final_success']);
-                            echo '';
-                        }
-                        ?> -->
-
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>

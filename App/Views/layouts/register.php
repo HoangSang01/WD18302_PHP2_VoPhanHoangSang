@@ -51,9 +51,9 @@ $validate = new Validation;
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password2">
                         <label for="floatingPassword">Nhập lại mật khẩu</label>
                         <?
-                        if (isset($_SESSION['password_err2'])) {
-                            echo '<p style="color: red;">' . $_SESSION['password_err2']  . '</p>';
-                            unset($_SESSION['password_err2']);
+                        if (isset($_SESSION['password2_err'])) {
+                            echo '<p style="color: red;">' . $_SESSION['password2_err']  . '</p>';
+                            unset($_SESSION['password2_err']);
                         }
                         ?>
                     </div>
@@ -63,10 +63,8 @@ $validate = new Validation;
 
                     <?
                     if (isset($_SESSION['final_err'])) {
-                        echo '<div class="p-2 mb-2 bg-success text-white">';
-                        $validate->displayErr($_SESSION['final_err']);
+                        echo '<div class="p-2 mb-2 bg-danger text-white">' . $_SESSION['final_err'] . ' </div>';
                         unset($_SESSION['final_err']);
-                        echo '</div>';
                     }
                     ?>
                     <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Đăng ký</button>

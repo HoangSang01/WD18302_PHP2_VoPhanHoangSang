@@ -76,6 +76,7 @@ abstract class BaseModels extends Database implements InterfaceCRUD
             $sql       = "UPDATE $table SET $updateStr";
             if (!empty($condition)) {
                 $sql = "UPDATE $table SET $updateStr WHERE $condition";
+                echo $sql;
             }
             $status = $this->query($sql);
             if (!$status)
@@ -118,5 +119,10 @@ abstract class BaseModels extends Database implements InterfaceCRUD
             echo $mess;
             die();
         }
+    }
+    public function lastId()
+    {
+        $sql = "SELECT LAST_INSERT_ID() AS last_id";
+        return $this->query($sql);
     }
 };

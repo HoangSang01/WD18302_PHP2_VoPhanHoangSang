@@ -133,4 +133,23 @@ class UserController extends BaseController
             header('location:?url=UserController/edit&profile_id=' . $user_id);
         }
     }
+    function add_user_action()
+    {
+        if ($this->_validation->validateAddUser($_POST)) {
+            $userModel = new UserModels();
+            $user = $userModel->checkUserExist($_POST["username"]);
+            if (!$user) {
+                $_POST['password'] = $userModel->hashPassword($_POST['password']);
+                $userModel->createUser($_POST);
+                $_SESSION['final_success'] = 'Đăng ký thành công';
+                // $profile_id =$userModel->getLastInsertedId();
+                header('Location:?url=UserController/list');
+            } else {
+                $_SESSION['username_err'] = 'Tên đăng nhập đã tồn tại';
+                header('Location:?url=UserController/add');
+            }
+        } else {
+            header('location:?url=UserController/add');
+        }
+    }
 }

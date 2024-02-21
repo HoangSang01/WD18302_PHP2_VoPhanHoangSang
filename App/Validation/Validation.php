@@ -27,7 +27,49 @@ class Validation
         if ($this->checkSpace($_POST['username'])) {
             $_SESSION['username_err'] = "Tên đăng nhập không được có khoảng trắng";
         }
-        if ($this->checkSpecialCharacter($_POST['username'])) {
+        if (!$this->checkSpecialCharacter($_POST['username'])) {
+            $_SESSION['username_err'] = "Tên đăng nhập không được chứa khoảng trắng hoặc các kí tự đặc biệt";
+        }
+        if ($this->checkLength($_POST['username'], 6)) {
+            $_SESSION['username_err'] = "Tên đăng nhập phải dài ít nhất 6 kí tự";
+        }
+        if ($this->checkEmpty($_POST['username'])) {
+            $_SESSION['username_err'] = "Không được để trống tên đăng nhập";
+        }
+        if ($this->checkEmail($_POST['email'])) {
+            $_SESSION['email_err'] = "Email không hợp lệ";
+        }
+        if ($this->checkEmpty($_POST['email'])) {
+            $_SESSION['email_err'] = "Không được để trống email";
+        }
+        if ($this->checkSpace($_POST['password'])) {
+            $_SESSION['password_err'] = "Mật khẩu không được có khoảng trắng";
+        }
+        if ($this->checkLength($_POST['password'], 6)) {
+            $_SESSION['password_err'] = "Mật khẩu phải dài ít nhất 6 kí tự";
+        }
+        if ($this->checkEmpty($_POST['password'])) {
+            $_SESSION['password_err'] = "Không được để trống mật khẩu";
+        }
+
+        if ($this->checkPasswordMatch($_POST['password'], $_POST['password2'])) {
+            $_SESSION['password2_err'] = "Mật khẩu không khớp";
+        }
+
+        if (!isset($_SESSION['username_err']) && !isset($_SESSION['password_err']) && !isset($_SESSION['password2_err']) && !isset($_SESSION['email_err'])) {
+            unset($_POST['password2']);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function validateAddUser($value)
+    {
+        if ($this->checkSpace($_POST['username'])) {
+            $_SESSION['username_err'] = "Tên đăng nhập không được có khoảng trắng";
+        }
+        if (!$this->checkSpecialCharacter($_POST['username'])) {
             $_SESSION['username_err'] = "Tên đăng nhập không được chứa khoảng trắng hoặc các kí tự đặc biệt";
         }
         if ($this->checkLength($_POST['username'], 6)) {
@@ -37,8 +79,6 @@ class Validation
         if ($this->checkEmpty($_POST['username'])) {
             $_SESSION['username_err'] = "Không được để trống tên đăng nhập";
         }
-
-
 
         if ($this->checkEmail($_POST['email'])) {
             $_SESSION['email_err'] = "Email không hợp lệ";
@@ -62,7 +102,14 @@ class Validation
             $_SESSION['password2_err'] = "Mật khẩu không khớp";
         }
 
-        if (!$_SESSION['username_err'] && !$_SESSION['password_err']  && !$_SESSION['password2_err'] && !$_SESSION['email_err']) {
+        if (!$this->checkSpecialCharacter($_POST['full_name'])) {
+            $_SESSION['full_name_err'] = "Tên người dùng không được chứa các kí tự đặc biệt";
+        }
+        if ($this->checkPhoneNumber($_POST['number'])) {
+            $_SESSION['number_err'] = "Số điện thoại không hợp lệ";
+        }
+
+        if (!isset($_SESSION['username_err']) && !isset($_SESSION['number_err']) && !isset($_SESSION['password2_err']) && !isset($_SESSION['password_err']) && !isset($_SESSION['email_err'])  && !isset($_SESSION['full_name_err'])) {
             unset($_POST['password2']);
             return true;
         } else {
@@ -135,16 +182,15 @@ class Validation
     }
     public function checkPhoneNumber($number)
     {
-        $number = preg_replace('/[^0-9]/', '', $number);
-        $number = preg_replace('/[^0-9]/', '', $number);
-        if (strlen($number) != 10 && strlen($number) != 11) {
-            return true;
-        }
-        if (substr($number, 0, 1) != '0') {
-            return true;
-        }
-        if (strlen($number) == 10 && !preg_match('/^(0)?(90|93|97|96|98|32|33|34|35|36|37|38|39|88|91|94|83|84|85|81|82|89|56|58|99|87|79|78|77|76|70|89|92|56|58|89)\d{7}$/', $number)) {
-            return true;
+        if (empty($number)) {
+            return false;
+        } else {
+            if (strlen($number) != 10 && strlen($number) != 11) {
+                return true;
+            }
+            if (substr($number, 0, 1) != '0') {
+                return true;
+            }
         }
         return false;
     }
@@ -165,7 +211,7 @@ class Validation
     }
     public function checkSpecialCharacter($key)
     {
-        if (preg_match('/^[a-zA-Z0-9]+$/', $key)) {
+        if (preg_match('/^[a-zA-Z0-9\s\-\'\.]+$/', $key)) {
             return true;
         }
         return false;
