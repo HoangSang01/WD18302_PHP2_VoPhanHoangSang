@@ -41,14 +41,12 @@ if (isset($_SESSION['final_success'])) {
                     } ?>
                 </div>
             </div>
-            <?
-            if ($_GET['profile_id'] ==  $_SESSION['user_id'])
-                echo '
             <div class="clearfix">
-            <div class="float-end" role="status">
-            <a href="?url=UserController/edit_password&profile_id=' . $user_id . '"><button type="button" class="btn btn-outline-warning m-2">Đổi mật khẩu</button></a>
+                <div class="float-end" role="status">
+                    <a href="?url=UserController/edit_password&profile_id=<?= $user_id ?>"><button type="button" class="btn btn-outline-warning m-2">Đổi mật khẩu</button></a>
+                </div>
             </div>
-            </div>';
+            <?
             if (isset($_SESSION['final_success'])) {
                 echo '<div class="p-2 mb-2 bg-success text-white">' . $_SESSION['final_success'] . '</div>';
                 unset($_SESSION['final_success']);

@@ -40,7 +40,6 @@ trait Query
         }
         return $this;
     }
-
     public function orWhere($field, $compare, $value)
     {
         $this->operator = " WHERE ";
@@ -114,9 +113,8 @@ trait Query
     {
         $this->tableName = $tableName;
         $insertStatus = $this->create($this->tableName, $data);
-        
-        return $insertStatus;
 
+        return $insertStatus;
     }
 
     public function update($data)

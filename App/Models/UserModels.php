@@ -131,4 +131,9 @@ class UserModels extends BaseModels
     {
         return $this->lastId();
     }
+    public function search_user($keyword)
+    {
+        $search = '%' . $keyword . '%';
+        return $this->read_all($this->table)->where("username", "LIKE", $search)->orWhere("full_name", "LIKE", $search)->orWhere("email", "LIKE", $search)->get();
+    }
 }

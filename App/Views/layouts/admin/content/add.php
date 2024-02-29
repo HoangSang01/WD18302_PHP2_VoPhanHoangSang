@@ -60,9 +60,9 @@
                     <label class="form-label">Số điện thoại</label>
                     <input type="text" class="form-control" id="number" name="number">
                     <?
-                    if (isset($_SESSION['number_err'])) {
-                        echo '<p style="color: red;">' . $_SESSION['number_err']  . '</p>';
-                        unset($_SESSION['number_err']);
+                    if (isset($_SESSION['phone_err'])) {
+                        echo '<p style="color: red;">' . $_SESSION['phone_err']  . '</p>';
+                        unset($_SESSION['phone_err']);
                     }
                     ?>
                 </div>

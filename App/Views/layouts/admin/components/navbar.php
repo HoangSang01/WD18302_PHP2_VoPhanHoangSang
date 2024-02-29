@@ -5,81 +5,13 @@
     <a href="#" class="sidebar-toggler flex-shrink-0">
         <i class="fa fa-bars"></i>
     </a>
-    <form class="d-none d-md-flex ms-4">
-        <input class="form-control bg-dark border-0" type="search" placeholder="Search">
+    <form class="d-none d-md-flex ms-4" id="searchForm">
+        <input id="searchInput" class="form-control bg-dark border-0" type="search" placeholder="Search">
     </form>
     <div class="navbar-nav align-items-center ms-auto">
-        <!-- <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <i class="fa fa-envelope me-lg-2"></i>
-                <span class="d-none d-lg-inline-flex">Message</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                <a href="#" class="dropdown-item">
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <div class="ms-2">
-                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                    </div>
-                </a>
-                <hr class="dropdown-divider">
-                <a href="#" class="dropdown-item">
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <div class="ms-2">
-                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                    </div>
-                </a>
-                <hr class="dropdown-divider">
-                <a href="#" class="dropdown-item">
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <div class="ms-2">
-                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                    </div>
-                </a>
-                <hr class="dropdown-divider">
-                <a href="#" class="dropdown-item text-center">See all message</a>
-            </div>
-        </div>
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <i class="fa fa-bell me-lg-2"></i>
-                <span class="d-none d-lg-inline-flex">Notificatin</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                <a href="#" class="dropdown-item">
-                    <h6 class="fw-normal mb-0">Profile updated</h6>
-                    <small>15 minutes ago</small>
-                </a>
-                <hr class="dropdown-divider">
-                <a href="#" class="dropdown-item">
-                    <h6 class="fw-normal mb-0">New user added</h6>
-                    <small>15 minutes ago</small>
-                </a>
-                <hr class="dropdown-divider">
-                <a href="#" class="dropdown-item">
-                    <h6 class="fw-normal mb-0">Password changed</h6>
-                    <small>15 minutes ago</small>
-                </a>
-                <hr class="dropdown-divider">
-                <a href="#" class="dropdown-item text-center">See all notifications</a>
-            </div>
-        </div> -->
-        <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <!-- <img class="rounded-circle me-lg-2" src="App/Views/layouts/admin/resources/img/user.jpg" alt="" style="width: 40px; height: 40px;"> -->
-                <span class="d-none d-lg-inline-flex"><? if ($full_name) {
-                                                            echo $full_name;
-                                                        } else {
-                                                            echo $username;
-                                                        } ?></span>
+                <span class="d-none d-lg-inline-flex"><?php echo $full_name ? $full_name : $username; ?></span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                 <a href="?url=UserController/profile&profile_id=<?= $_SESSION['user_id'] ?>" class="dropdown-item">Tài khoản</a>
@@ -88,3 +20,47 @@
         </div>
     </div>
 </nav>
+
+<div id="searchResultDropdown" class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.querySelector('#searchInput');
+        const searchResultDropdown = document.querySelector('#searchResultDropdown');
+
+        searchInput.addEventListener('input', function() {
+            const keyword = this.value.trim();
+            if (keyword.length > 0) {
+                search(keyword);
+            } else {
+                searchResultDropdown.innerHTML = '';
+                searchResultDropdown.classList.remove('show');
+            }
+        });
+
+        function search(keyword) {
+            $.ajax({
+                url: 'search.php',
+                method: 'GET',
+                data: {
+                    keyword: keyword
+                },
+                success: function(data) {
+                    showSearchResults(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        function showSearchResults(results) {
+            let html = '';
+            results.forEach(result => {
+                html += `<a href="?url=UserController/profile&profile_id=${result.id}" class="dropdown-item">${result.full_name}</a>`;
+            });
+            searchResultDropdown.innerHTML = html;
+            searchResultDropdown.classList.add('show');
+        }
+    });
+</script>

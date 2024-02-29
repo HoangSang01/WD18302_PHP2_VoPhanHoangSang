@@ -106,10 +106,10 @@ class Validation
             $_SESSION['full_name_err'] = "Tên người dùng không được chứa các kí tự đặc biệt";
         }
         if ($this->checkPhoneNumber($_POST['number'])) {
-            $_SESSION['number_err'] = "Số điện thoại không hợp lệ";
+            $_SESSION['phone_err'] = "Số điện thoại không hợp lệ";
         }
 
-        if (!isset($_SESSION['username_err']) && !isset($_SESSION['number_err']) && !isset($_SESSION['password2_err']) && !isset($_SESSION['password_err']) && !isset($_SESSION['email_err'])  && !isset($_SESSION['full_name_err'])) {
+        if (!isset($_SESSION['username_err']) && !isset($_SESSION['phone_err']) && !isset($_SESSION['password2_err']) && !isset($_SESSION['password_err']) && !isset($_SESSION['email_err'])  && !isset($_SESSION['full_name_err'])) {
             unset($_POST['password2']);
             return true;
         } else {
@@ -155,7 +155,10 @@ class Validation
             $_SESSION['email_err'] = "Không được để trống email";
         }
         if ($this->checkPhoneNumber($_POST['number'])) {
-            $_SESSION['number_err'] = "Số điện thoại không hợp lệ";
+            $_SESSION['phone_err'] = "Số điện thoại không hợp lệ";
+        }
+        if ($this->checkEmpty($_POST['number'])) {
+            $_SESSION['phone_err'] = "Không được để trống số điện thoại";
         }
         if ($this->checkEmpty($_POST['cityName'])) {
             $_SESSION['cityName_err'] = "Vui lòng chọn tỉnh/thành phố";
@@ -177,18 +180,14 @@ class Validation
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return true;
         }
-
         return false;
     }
     public function checkPhoneNumber($number)
     {
-        if (empty($number)) {
-            return false;
-        } else {
-            if (strlen($number) != 10 && strlen($number) != 11) {
+        if (!empty($number)) {
+            if (strlen($number) != 10) {
                 return true;
-            }
-            if (substr($number, 0, 1) != '0') {
+            } elseif (substr($number, 0, 1) != '0') {
                 return true;
             }
         }
@@ -211,10 +210,12 @@ class Validation
     }
     public function checkSpecialCharacter($key)
     {
-        if (preg_match('/^[a-zA-Z0-9\s\-\'\.]+$/', $key)) {
+        $key2 = trim($key);
+        if (preg_match('/^[a-zA-Z\s\x{00C0}-\x{024F}\x{1E00}-\x{1EFF}]+$/u', $key2)) {
+            return false;
+        } else {
             return true;
         }
-        return false;
     }
 
     public function checkPasswordMatch($password, $password2)
