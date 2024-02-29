@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aki",
+            "email": "yuukirito0107@gmail.com"
+        }
+    ]
+}
