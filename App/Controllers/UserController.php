@@ -36,6 +36,8 @@ class UserController extends BaseController
     {
         $this->_renderBase->renderHeader();
         $data = $this->_data->read_all_User_Actived();
+        // var_dump($data);
+        // die;
         $this->load->render('layouts/admin/content/list', $data);
         $this->_renderBase->renderFooter();
     }

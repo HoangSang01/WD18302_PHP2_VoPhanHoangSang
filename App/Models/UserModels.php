@@ -12,7 +12,7 @@ class UserModels extends BaseModels
     public $tableName = 'users';
     public function read_all_User_Actived()
     {
-        return $this->read_all($this->table)->join('roles', 'users.role=roles.id')->join('status', 'users.status=status.id')->where('status', '=', '1')->orderBy('role', 'DESC')->get();
+        return $this->read_all($this->table)->join('roles', 'users.role=roles.id')->join('status', 'users.status=status.id')->where('status', '=', '1')->orderBy('role DESC,user_id ASC')->get();
     }
     public function read_all_User_Inactived()
     {

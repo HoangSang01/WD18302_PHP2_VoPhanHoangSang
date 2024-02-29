@@ -73,14 +73,14 @@ trait Query
      * $this->db->orderBy('id','DESC')
      * $this->db->orderBy('id desc, name asc')
      */
-    public function orderBy($field, $type = 'ASC')
+    public function orderBy($field, $type = 'DESC')
     {
         $fileArr = array_filter(explode(',', $field));
         if (!empty($fileArr && count($fileArr) >= 2)) {
             // SQL order by multi
             $this->orderBy = " ORDER BY " . implode(', ', $fileArr);
         } else {
-            $this->orderBy = " ORDER BY " . $field . " " . $type;
+            $this->orderBy = " ORDER BY " .  $field . " " . $type;
         }
         return $this;
     }
