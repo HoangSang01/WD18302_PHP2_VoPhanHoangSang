@@ -18,10 +18,7 @@ class UserModels extends BaseModels
     {
         return $this->read_all($this->table)->join('roles', 'users.role=roles.id')->join('status', 'users.status=status.id')->where('status', '=', '2')->orderBy('role', 'DESC')->get();
     }
-    public function checkEmailExist($email)
-    {
-        return $this->select()->where('email', '=', $email)->first();
-    }
+
 
     public function checkUserRole($user_id, $role)
     {
@@ -32,6 +29,10 @@ class UserModels extends BaseModels
             $role = 1;
             return $this->select()->where('user_id', '=', $user_id)->where('role', '=', '1')->first();
         }
+    }
+    public function checkEmailExist($email)
+    {
+        return $this->read_all($this->table)->where("username", "=", $email)->orWhere("email", "=", $email)->first();
     }
     public function checkUserExist($username)
     {
@@ -127,13 +128,39 @@ class UserModels extends BaseModels
             return $this->insert('activities', $data);
         }
     }
-    public function getLastInsertedId()
-    {
-        return $this->lastId();
-    }
     public function search_user($keyword)
     {
         $search = '%' . $keyword . '%';
         return $this->read_all($this->table)->where("username", "LIKE", $search)->orWhere("full_name", "LIKE", $search)->orWhere("email", "LIKE", $search)->get();
+    }
+
+    public function generateRandomNumber($value)
+    {
+        $characters = '0123456789';
+        $randomString = '';
+        for ($i = 0; $i < $value; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+        return $randomString;
+    }
+
+    public function saveOTP($email, $code)
+    {
+        $data = array(
+            'email' => $email,
+            'otp_code' => $code,
+        );
+        return $this->insert('otp', $data);
+    }
+    public function deleteOTP($email)
+    {
+        $table = "otp";
+        $condition = "email = '$email' AND expiration_time < NOW()";
+        $this->remove($table, $condition);
+    }
+    public function checkOTP($email)
+    {
+        return $this->table('otp')->select('otp_code')->where('email', '=', $email)->first();
     }
 }

@@ -51,6 +51,8 @@ abstract class BaseModels extends Database implements InterfaceCRUD
             $fielStr  = rtrim($fielStr, ',');
             $valueStr = rtrim($valueStr, ',');
             $sql      = "INSERT INTO  $table($fielStr) VALUES ($valueStr)";
+            // echo $sql;
+            // die;
             $status = $this->query($sql);
             if (!$status)
                 return false;
@@ -102,6 +104,11 @@ abstract class BaseModels extends Database implements InterfaceCRUD
     {
         $sql = "DELETE FROM " . $this->table . " WHERE id = $id";
         return true;
+    }
+    public function remove($table, $condition)
+    {
+        $sql = "DELETE FROM " . $table . " WHERE " . $condition;
+        return $this->query($sql);
     }
     public function limit(int $limit = 10)
     {

@@ -154,4 +154,24 @@ class UserController extends BaseController
             header('location:?url=UserController/add');
         }
     }
+
+    function search()
+    {
+        if (isset($_GET['keyword'])) {
+            $userModels = new UserModels();
+            $keyword = $_GET['keyword'];
+            $searchResults = $userModels->search_user($keyword);
+            if ($searchResults) {
+                $html = '';
+                foreach ($searchResults as $result) {
+                    $html .= '<a href="?url=UserController/profile&profile_id=' . $result['user_id'] . '" class="dropdown-item" id="searchTarget"> ' . $result['full_name'] . '</a>';
+                }
+                echo $html;
+            } else {
+                echo '<p class="dropdown-item" id="searchTarget">Không tìm thấy kết quả</p>';
+            }
+        } else {
+            echo json_encode(['error' => 'Not have keyword']);
+        }
+    }
 }

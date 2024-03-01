@@ -287,3 +287,26 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+
+#searchResults {
+    background-color: #0d0f13;
+    margin-left: 83px;
+    width: 215px;
+    position: fixed;
+    top: 20;
+    left: 200;
+    border-radius: 0 0 10px 10px;
+    z-index: 1000;
+    border: 1p solid white;
+}
+
+#searchTarget {
+    color: #6c7293;
+    border-left: 1px solid red;
+}
+
+#searchTarget:hover {
+    background-color: #080404;
+    color: #EB1616;
+    border-left: 3px solid red;
+}

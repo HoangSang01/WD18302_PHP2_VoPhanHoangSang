@@ -21,6 +21,29 @@ class Validation
             return true;
         }
     }
+    public function validateForgot($value)
+    {
+        if ($this->checkEmpty($_POST['email'])) {
+            $_SESSION['email_err'] = "Không được để trống email";
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function validateOTP($value)
+    {
+        if ($this->checkEmpty($_POST['otp'])) {
+            $_SESSION['otp_err'] = "Không được để trống mã OTP";
+            return false;
+        } else if ($this->checkLength($_POST['otp'], 6)) {
+            $_SESSION['otp_err'] = "Mã OTP có độ dài 6 kí tự";
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     public function validateRegister($value)
     {
@@ -69,7 +92,7 @@ class Validation
         if ($this->checkSpace($_POST['username'])) {
             $_SESSION['username_err'] = "Tên đăng nhập không được có khoảng trắng";
         }
-        if (!$this->checkSpecialCharacter($_POST['username'])) {
+        if ($this->checkSpecialCharacter($_POST['username'])) {
             $_SESSION['username_err'] = "Tên đăng nhập không được chứa khoảng trắng hoặc các kí tự đặc biệt";
         }
         if ($this->checkLength($_POST['username'], 6)) {
@@ -102,7 +125,7 @@ class Validation
             $_SESSION['password2_err'] = "Mật khẩu không khớp";
         }
 
-        if (!$this->checkSpecialCharacter($_POST['full_name'])) {
+        if ($this->checkSpecialCharacter($_POST['full_name'])) {
             $_SESSION['full_name_err'] = "Tên người dùng không được chứa các kí tự đặc biệt";
         }
         if ($this->checkPhoneNumber($_POST['number'])) {
@@ -140,6 +163,29 @@ class Validation
             return false;
         } else {
             unset($_POST['confirmPassword']);
+            return true;
+        }
+    }
+
+    public function validateResetPassword($value)
+    {
+        if ($this->checkEmpty($_POST['password'])) {
+            $_SESSION['password_err'] = "Không được để trống mật khẩu mới";
+            return false;
+        } else
+        if ($this->checkLength($_POST['password'], 6)) {
+            $_SESSION['password_err'] = "Mật khẩu phải dài ít nhất 6 kí tự";
+            return false;
+        }
+        if ($this->checkSpace($_POST['password'])) {
+            $_SESSION['password_err'] = "Mật khẩu không được có khoảng trắng";
+            return false;
+        } else
+        if ($this->checkPasswordMatch($_POST['password'], $_POST['password2'])) {
+            $_SESSION['password2_err'] = "Mật khẩu không khớp";
+            return false;
+        } else {
+            unset($_POST['password2']);
             return true;
         }
     }
@@ -210,11 +256,15 @@ class Validation
     }
     public function checkSpecialCharacter($key)
     {
-        $key2 = trim($key);
-        if (preg_match('/^[a-zA-Z\s\x{00C0}-\x{024F}\x{1E00}-\x{1EFF}]+$/u', $key2)) {
-            return false;
+        if (!empty($key)) {
+            $key2 = trim($key);
+            if (preg_match('/^[a-zA-Z\s\x{00C0}-\x{024F}\x{1E00}-\x{1EFF}]+$/u', $key2)) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
-            return true;
+            return false;
         }
     }
 

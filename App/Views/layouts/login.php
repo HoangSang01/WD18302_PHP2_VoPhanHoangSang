@@ -16,7 +16,7 @@ $validate = new Validation;
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
-                        <label for="floatingInput">Tên đăng nhập</label>
+                        <label for="floatingInput">Tên đăng nhập hoặc email</label>
                         <?
                         if (isset($_SESSION['username_err'])) {
                             echo '<p style="color: red;">' . $_SESSION['username_err']  . '</p>';
@@ -36,7 +36,7 @@ $validate = new Validation;
                     </div>
 
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <a href="" style="color:gray">Quên mật khẩu</a>
+                        <a href="?url=LoginController/forgotPassword" style="color:gray">Quên mật khẩu</a>
                     </div>
                     <?
                     if (isset($_SESSION['final_err'])) {

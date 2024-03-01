@@ -20,47 +20,38 @@
         </div>
     </div>
 </nav>
-
-<div id="searchResultDropdown" class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+<div id="searchResults">
 </div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.querySelector('#searchInput');
-        const searchResultDropdown = document.querySelector('#searchResultDropdown');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
 
-        searchInput.addEventListener('input', function() {
-            const keyword = this.value.trim();
-            if (keyword.length > 0) {
-                search(keyword);
-            } else {
-                searchResultDropdown.innerHTML = '';
-                searchResultDropdown.classList.remove('show');
-            }
-        });
-
-        function search(keyword) {
-            $.ajax({
-                url: 'search.php',
-                method: 'GET',
-                data: {
-                    keyword: keyword
-                },
-                success: function(data) {
-                    showSearchResults(data);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-
-        function showSearchResults(results) {
-            let html = '';
-            results.forEach(result => {
-                html += `<a href="?url=UserController/profile&profile_id=${result.id}" class="dropdown-item">${result.full_name}</a>`;
-            });
-            searchResultDropdown.innerHTML = html;
-            searchResultDropdown.classList.add('show');
+    searchInput.addEventListener('input', function() {
+        const keyword = this.value.trim();
+        if (keyword.length > 0) {
+            search(keyword);
+        } else {
+            searchResults.innerHTML = '';
         }
     });
+
+    function search(keyword) {
+        $.ajax({
+            url: '?url=UserController/search',
+            method: 'GET',
+            data: {
+                keyword: keyword
+            },
+            success: function(data) {
+                searchResults.innerHTML = data;
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
 </script>

@@ -1,4 +1,4 @@
-<div class="container-fluid pt-4 px-4">
+<div class="container-fluid pt-4 px-4 ">
     <div class="col-sm-12 col-xl-6 mx-auto">
         <div class="bg-secondary rounded h-100 p-4">
             <h6 class="mb-4">Thêm tài khoản</h6>
