@@ -50,7 +50,7 @@ class Validation
         if ($this->checkSpace($_POST['username'])) {
             $_SESSION['username_err'] = "Tên đăng nhập không được có khoảng trắng";
         }
-        if (!$this->checkSpecialCharacter($_POST['username'])) {
+        if ($this->checkSpecialCharacterWithNumber($_POST['username'])) {
             $_SESSION['username_err'] = "Tên đăng nhập không được chứa khoảng trắng hoặc các kí tự đặc biệt";
         }
         if ($this->checkLength($_POST['username'], 6)) {
@@ -92,7 +92,7 @@ class Validation
         if ($this->checkSpace($_POST['username'])) {
             $_SESSION['username_err'] = "Tên đăng nhập không được có khoảng trắng";
         }
-        if ($this->checkSpecialCharacter($_POST['username'])) {
+        if ($this->checkSpecialCharacterWithNumber($_POST['username'])) {
             $_SESSION['username_err'] = "Tên đăng nhập không được chứa khoảng trắng hoặc các kí tự đặc biệt";
         }
         if ($this->checkLength($_POST['username'], 6)) {
@@ -192,7 +192,7 @@ class Validation
     public function validateEditProfile($value)
     {
         if ($this->checkSpecialCharacter($_POST['full_name'])) {
-            $_SESSION['full_name_err'] = "Tên người dùng không được chứa các kí tự đặc biệt";
+            $_SESSION['full_name_err'] = "Tên người dùng không được chứa số và các kí tự đặc biệt";
         }
         if ($this->checkEmail($_POST['email'])) {
             $_SESSION['email_err'] = "Email không hợp lệ";
@@ -267,6 +267,20 @@ class Validation
             return false;
         }
     }
+    public function checkSpecialCharacterWithNumber($key)
+    {
+        if (!empty($key)) {
+            $key2 = trim($key);
+            if (preg_match('/^[a-zA-Z0-9\s\x{00C0}-\x{024F}\x{1E00}-\x{1EFF}]+$/u', $key2)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
 
     public function checkPasswordMatch($password, $password2)
     {

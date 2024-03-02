@@ -65,7 +65,7 @@ class LoginController extends BaseController
         $userModel = new UserModels();
         $userModel->user_activity($_SESSION['user_id'], 'Đăng xuất');
         unset($_SESSION['user_id']);
-        setcookie("user_id", "", time() - 3600, "/");
+        setcookie("user_id", "", time() - 7200, "/");
         header('Location:?url=LoginController/Login');
     }
 
@@ -96,7 +96,7 @@ class LoginController extends BaseController
             $user = $userModel->checkEmailExist($_POST["username"]);
             if ($user) {
                 if (password_verify($_POST['password'], $user['password'])) {
-                    setcookie("user_id", $user['user_id'], time() + 3600, "/");
+                    setcookie("user_id", $user['user_id'], time() + 7200, "/");
                     $_SESSION['user_id'] = $user['user_id'];
                     $userModel->user_activity($_SESSION['user_id'], 'Đăng nhập');
                     header('Location:?url=HomeController/HomePage');
@@ -126,7 +126,6 @@ class LoginController extends BaseController
                 $this->sendMail($email, $code);
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['user_id'] = $user['user_id'];
-                echo $_SESSION['user_id'];
                 $_SESSION['final_success'] = "Mã OTP gồm 6 kí tự đã được gửi tới <b> " . $email . "</b>. Hãy kiểm tra hòm thư";
                 $this->otpInput();
             } else {
